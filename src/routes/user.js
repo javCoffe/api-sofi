@@ -2,12 +2,12 @@ const express = require("express");
 const userSchema = require("../models/user");
 
 const router = express.Router();
-// user - passs
+// Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email, password });
+        const user = await userSchema.findOne({ email, password });
 
         if (user) {
             // Usuario encontrado, puedes hacer lo que necesites, como generar un token de autenticación
@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         // Error al buscar en la base de datos
-        res.status(500).json({ message: 'Error al iniciar sesión' });
+        res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
     }
 });
 
