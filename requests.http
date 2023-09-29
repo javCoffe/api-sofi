@@ -1,9 +1,9 @@
 ###
-POST http://localhost:9000/api/users HTTP/1.1
+POST https://server-sofi.onrender.com/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Prueba",
+    "name": "UUUUUUU",
     "lastname": "González",
     "age": "23",
     "email": "pedro@gmail.com",
