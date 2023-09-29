@@ -1,0 +1,40 @@
+###
+POST http://localhost:9000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Pedro",
+    "lastname": "González",
+    "age": "23",
+    "email": "pedro@gmail.com",
+    "studentCode": "A000001",
+    "firstQuestion": "Respuesta1",
+    "secondQuestion": "Respuesta2",
+    "thirdQuestion": "Respuesta3",
+    "password": "contraseña"
+}
+
+###
+GET http://localhost:9000/api/users HTTP/1.1
+
+###
+GET http://localhost:9000/api/users/6511bde82b623e3956f5631b HTTP/1.1
+
+###
+PUT http://localhost:9000/api/users/6511bde82b623e3956f5631b HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Pedro",
+    "lastname": "González",
+    "age": "23",
+    "email": "pedro@gmail.com",
+    "studentCode": "A000001",
+    "firstQuestion": "Respuesta1",
+    "secondQuestion": "Respuesta2",
+    "thirdQuestion": "Respuesta3",
+    "password": "contraseña"
+}
+
+###
+DELETE http://localhost:9000/api/users/6511c1b3f56d4f30faf7e990 HTTP/1.1
