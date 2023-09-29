@@ -57,7 +57,8 @@ router.put("/users/:id", (req, res) => {
         studentCode,
         firstQuestion,
         secondQuestion,
-        thirdQuestion } = req.body;
+        thirdQuestion,
+        password } = req.body;
     userSchema
     .updateOne({ _id: id }, { $set: {name,
         lastname,
@@ -66,7 +67,8 @@ router.put("/users/:id", (req, res) => {
         studentCode,
         firstQuestion,
         secondQuestion,
-        thirdQuestion} })
+        thirdQuestion,
+        password} })
     .then((data) => res.json(data))
     .catch(() => res.json({ message: error}));
 });

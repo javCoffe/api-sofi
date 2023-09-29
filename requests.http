@@ -3,60 +3,46 @@ POST https://server-sofi.onrender.com/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "abc",
+    "name": "ZZZZ",
     "lastname": "González",
     "age": "23",
-    "email": "abc@gmail.com",
+    "email": "ZZZZ@gmail.com",
     "studentCode": "A000001",
     "firstQuestion": "Respuesta1",
     "secondQuestion": "Respuesta2",
     "thirdQuestion": "Respuesta3",
-    "password": "abc"
+    "password": "ZZZZ"
 }
 ###
 POST https://server-sofi.onrender.com/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "abc@gmail.com",
-    "password": "abc"
+    "email": "ZZZZ@gmail.com",
+    "password": "ZZZZ"
 }
 
-###
-POST https://server-sofi.onrender.com/api/users HTTP/1.1
-Content-Type: application/json
 
-{
-    "name": "1qwiueowiauoewi",
-    "lastname": "González",
-    "age": "23",
-    "email": "pedro@gmail.com",
-    "studentCode": "A000001",
-    "firstQuestion": "Respuesta1",
-    "secondQuestion": "Respuesta2",
-    "thirdQuestion": "Respuesta3",
-    "password": "contraseña"
-}
 ###
 GET https://server-sofi.onrender.com/api/users HTTP/1.1
 
 ###
-GET https://server-sofi.onrender.com/api/users/65172331ada6aefe51a41e44 HTTP/1.1
+GET https://server-sofi.onrender.com/api/users/65173b12f08a04139e5f8fce HTTP/1.1
 
 ###
-PUT https://server-sofi.onrender.com/api/users/65172331ada6aefe51a41e44 HTTP/1.1
+PUT https://server-sofi.onrender.com/api/users/65173b12f08a04139e5f8fce HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Prueba 100",
+    "name": "Prueba ZZZ",
     "lastname": "González",
     "age": "23",
-    "email": "pedro@gmail.com",
+    "email": "prueZ@gmail.com",
     "studentCode": "A000001",
     "firstQuestion": "Respuesta1",
     "secondQuestion": "Respuesta2",
     "thirdQuestion": "Respuesta3",
-    "password": "contraseña"
+    "password": "aaaaa"
 }
 
 ###
