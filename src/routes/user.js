@@ -2,6 +2,25 @@ const express = require("express");
 const userSchema = require("../models/user");
 
 const router = express.Router();
+// user - passs
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email, password });
+
+        if (user) {
+            // Usuario encontrado, puedes hacer lo que necesites, como generar un token de autenticación
+            res.status(200).json({ message: 'Inicio de sesión exitoso' });
+        } else {
+            // Usuario no encontrado o contraseña incorrecta
+            res.status(401).json({ message: 'Correo electrónico o contraseña incorrectos' });
+        }
+    } catch (error) {
+        // Error al buscar en la base de datos
+        res.status(500).json({ message: 'Error al iniciar sesión' });
+    }
+});
 
 //create user
 router.post("/users", (req, res) => {
