@@ -137,14 +137,26 @@ router.get("/events/:id", async (req, res) => {
 
 // Sección para los Recursos de Sofía
 
-const Resource = require("../models/resource"); // Importa el modelo de recurso
+const Resource = require("../models/resource"); // Asegúrate de importar el modelo Resource correctamente
 
-router.post("/resources", (req, res) => {
-    const user = resourceSchema(req.body);
-    user
-    .save()
-    .then((data) => res.json(data))
-    .catch(() => res.json({ message: error}));
+// Ruta para crear un nuevo recurso
+router.post("/resources", async (req, res) => {
+    try {
+        // Extraer los datos del cuerpo de la solicitud
+        const { name, path, category, icon } = req.body;
+
+        // Crear una nueva instancia del modelo Resource
+        const newResource = new Resource({ name, path, category, icon });
+
+        // Guardar el nuevo recurso en la base de datos
+        const savedResource = await newResource.save();
+
+        // Devolver el recurso creado como respuesta
+        res.status(201).json(savedResource);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al crear el recurso", error: error.message });
+    }
 });
 
 // Ruta para listar todos los recursos
