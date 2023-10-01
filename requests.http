@@ -19,16 +19,17 @@ POST https://server-sofi.onrender.com/api/resources HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "libro_Prueba",
+    "name": "libro_Prueba4",
     "path": "/ruta/recurso",
-    "category": "comprension",
+    "category": "expresion",
     "icon": "icono.png"
 }
 ###
 GET https://server-sofi.onrender.com/api/resources HTTP/1.1
 
+
 ###
-GET https://server-sofi.onrender.com/api/resources/by-category/comprension HTTP/1.1
+GET https://server-sofi.onrender.com/api/resources/by-category/comunicacion HTTP/1.1
 
 ###
 POST https://server-sofi.onrender.com/api/login HTTP/1.1

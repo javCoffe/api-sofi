@@ -171,7 +171,7 @@ router.get("/resources", async (req, res) => {
 
 // Ruta para obtener un recurso específico por ID
 // Ruta para obtener recursos por categoría
-router.get("/resources/by-category/:category", async (req, res) => {
+router.get("/resources/:category", async (req, res) => {
     const { category } = req.params;
     try {
         // Realizar una consulta para buscar recursos por categoría
