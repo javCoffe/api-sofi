@@ -170,14 +170,18 @@ router.get("/resources", async (req, res) => {
 });
 
 // Ruta para obtener un recurso específico por ID
-router.get("/resources/:id", async (req, res) => {
-    const { id } = req.params;
+// Ruta para obtener recursos por categoría
+router.get("/resources/by-category/:category", async (req, res) => {
+    const { category } = req.params;
     try {
-        const resource = await Resource.findById(id);
-        if (!resource) {
-            return res.status(404).json({ message: "Recurso no encontrado" });
+        // Realizar una consulta para buscar recursos por categoría
+        const resources = await Resource.find({ category });
+
+        if (!resources || resources.length === 0) {
+            return res.status(404).json({ message: "Recursos no encontrados para la categoría especificada" });
         }
-        res.json(resource);
+
+        res.json(resources);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
