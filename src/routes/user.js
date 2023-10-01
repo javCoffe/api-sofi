@@ -139,6 +139,14 @@ router.get("/events/:id", async (req, res) => {
 
 const Resource = require("../models/resource"); // Importa el modelo de recurso
 
+router.post("/resources", (req, res) => {
+    const user = resourceSchema(req.body);
+    user
+    .save()
+    .then((data) => res.json(data))
+    .catch(() => res.json({ message: error}));
+});
+
 // Ruta para listar todos los recursos
 router.get("/resources", async (req, res) => {
     try {
