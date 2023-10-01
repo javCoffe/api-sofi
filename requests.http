@@ -24,16 +24,7 @@ Content-Type: application/json
     "email": "ZZZZ@gmail.com",
     "password": "ZZZZ"
 }
-###
-POST http://localhost:9000/api/resources
-Content-Type: application/json
 
-{
-    "name": "Nombre del recurso",
-    "path": "/ruta/recurso",
-    "category": "Categoria",
-    "icon": "icono.png"
-}
 
 ###
 GET https://server-sofi.onrender.com/api/users HTTP/1.1
