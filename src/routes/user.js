@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
             res.status(200).json({ message: 'Inicio de sesión exitoso', state: 1, userId: _id });
         } else {
             // Usuario no encontrado o contraseña incorrecta
-            res.status(401).json({ message: 'Correo electrónico o contraseña incorrectos', state: 0 });
+            res.status(400).json({ message: 'Correo electrónico o contraseña incorrectos', state: 0 });
         }
     } catch (error) {
         // Error al buscar en la base de datos
