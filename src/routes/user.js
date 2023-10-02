@@ -293,6 +293,24 @@ router.get('/resources/:category', (req, res) => {
     }
 });
 
-
+//aaa
+router.get("/resources/:category", (req, res) => {
+    const { category } = req.params;
+    resourceSchema
+    .find(category)
+    .then((data) => {
+        if (data) {
+            // Categoría encontrada exitosamente
+            res.status(200).json({ message: 'Categoria encontrada exitosamente', state: 1, list: data });
+        } else {
+            // Categoría no encontrada
+            res.status(400).json({ message: 'Categoria no encontrada', state: 0 });
+        }
+    })
+    .catch((error) => {
+        // Error interno del servidor
+        res.status(500).json({ message: "Error al obtener categorias", error: error.message });
+    });
+});
 
 module.exports = router;
