@@ -272,7 +272,7 @@ router.get("/resources", async (req, res) => {
 // Ruta para obtener recursos por categoría
 // Ruta para obtener recursos por categoría
 // Ruta para listar recursos por categoría
-app.get('/resources/:category', (req, res) => {
+router.get('/resources/:category', (req, res) => {
     const { category } = req.params;
     
     try {
