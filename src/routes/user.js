@@ -37,7 +37,7 @@ router.get("/users", (req, res) => {
     userSchema
     .find()
     .then((data) => res.json(data))
-    .catch(() => res.json({ message: error}));
+    .catch((error) => res.status(500).json({ message: "Error al listar los usuarios", error }));
 });
 
 // get a user
@@ -46,7 +46,7 @@ router.get("/users/:id", (req, res) => {
     userSchema
     .findById(id)
     .then((data) => res.json(data))
-    .catch(() => res.json({ message: error}));
+    .catch((error) => res.status(500).json({ message: "Error al borrar el usuario", error }));
 });
 
 // update a user
@@ -72,7 +72,7 @@ router.put("/users/:id", (req, res) => {
         thirdQuestion,
         password} })
     .then((data) => res.json(data))
-    .catch(() => res.json({ message: error}));
+    .catch((error) => res.status(500).json({ message: "Error al actualizar el usuario", error }));
 });
 
 // delete a user
@@ -81,7 +81,7 @@ router.delete("/users/:id", (req, res) => {
     userSchema
     .deleteOne({ _id: id })
     .then((data) => res.json(data))
-    .catch(() => res.json({ message: error}));
+    .catch((error) => res.status(500).json({ message: "Error al eliminar el usuario", error }));
 });
 
 // Ruta para listar los inicios de sesión de un usuario específico
