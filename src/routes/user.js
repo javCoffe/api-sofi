@@ -276,10 +276,10 @@ router.get("/resources/:category", async (req, res) => {
         const resources = await Resource.find({ category });
 
         if (!resources || resources.length === 0) {
-            return res.status(404).json({ message: "Recursos no encontrados para la categoría especificada" });
+            return res.status(400).json({ message: "Recursos no encontrados para la categoría especificada", state: 0 });
         }
 
-        res.status(200).json({ message: "Recursos encontrados para la categoría especificada", resources });
+        res.status(200).json({ message: "Recursos encontrados para la categoría especificada", state: 1, resources });
 
     } catch (error) {
         res.status(500).json({ message: error.message });
