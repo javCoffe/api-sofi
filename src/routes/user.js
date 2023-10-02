@@ -29,10 +29,16 @@ router.post("/users", (req, res) => {
     const user = userSchema(req.body);
     user
       .save()
-      .then((data) => res.json(data))
-      .catch((error) => res.status(500).json({ message: "Error al guardar el usuario", error }));
+      .then((data) => {
+        // Usuario creado exitosamente
+        res.status(201).json({ message: 'Usuario creado exitosamente', state: 1, userData: data });
+      })
+      .catch((error) => {
+        // Error al guardar el usuario
+        res.status(500).json({ message: 'Error al guardar el usuario', state: 0, error: error.message });
+      });
   });
-  
+
 // get all users
 router.get("/users", (req, res) => {
     userSchema
