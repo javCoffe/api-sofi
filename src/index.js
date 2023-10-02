@@ -7,11 +7,11 @@ const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 9000;
-
+app.use(cors());
 //middleware
 app.use(express.json());
 app.use('/api', userRoutes);
-app.use(cors());
+
 
 //routes
 app.get("/",(req, res) => {
