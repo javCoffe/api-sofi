@@ -23,13 +23,15 @@ router.post('/login', async (req, res) => {
 });
 
 //create user
+// create user
 router.post("/users", (req, res) => {
     const user = userSchema(req.body);
     user
-    .save()
-    .then((data) => res.json(data))
-    .catch(() => res.json({ message: error}));
-});
+      .save()
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: "Error al guardar el usuario", error }));
+  });
+  
 // get all users
 router.get("/users", (req, res) => {
     userSchema
