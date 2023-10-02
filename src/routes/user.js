@@ -268,11 +268,6 @@ router.get("/resources", async (req, res) => {
 });
 
 
-
-// Ruta para obtener recursos por categoría
-// Ruta para obtener recursos por categoría
-
-//aaa
 // Ruta para obtener recursos por categoría
 router.get("/resources/:category", async (req, res) => {
     const { category } = req.params;
@@ -284,7 +279,8 @@ router.get("/resources/:category", async (req, res) => {
             return res.status(404).json({ message: "Recursos no encontrados para la categoría especificada" });
         }
 
-        res.json(resources);
+        res.status(200).json({ message: "Recursos encontrados para la categoría especificada", resources });
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
