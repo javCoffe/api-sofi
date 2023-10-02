@@ -271,24 +271,28 @@ router.get("/resources", async (req, res) => {
 
 // Ruta para obtener recursos por categoría
 // Ruta para obtener recursos por categoría
-router.get("/resources/:category", async (req, res) => {
+// Ruta para listar recursos por categoría
+app.get('/resources/:category', (req, res) => {
     const { category } = req.params;
+    
     try {
-        // Realizar una consulta para buscar recursos por categoría
-        const resources = await Resource.find({ category });
-
-        if (!resources || resources.length === 0) {
-            // Recursos no encontrados (error 400)
+        // Filtra los recursos por la categoría especificada
+        const filteredResources = resourcesData.filter(resource => resource.category === category);
+        
+        if (filteredResources.length === 0) {
+            // No se encontraron recursos para la categoría especificada (error 400)
             return res.status(400).json({ message: "No se encontraron recursos para la categoría especificada", state: 0 });
         }
-
+        
         // Recursos encontrados con éxito (error 200)
-        res.status(200).json({ message: "Recursos encontrados exitosamente", state: 1, resources });
+        res.status(200).json({ message: "Recursos encontrados exitosamente", state: 1, resources: filteredResources });
     } catch (error) {
         // Error interno del servidor (error 500)
-        res.status(500).json({ message: "Error al obtener recursos por categoría", error: error.message });
+        console.error(error);
+        res.status(500).json({ message: "Error interno del servidor", error: error.message });
     }
 });
+
 
 
 module.exports = router;
