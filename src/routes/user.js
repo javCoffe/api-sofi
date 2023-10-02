@@ -273,23 +273,21 @@ router.get("/resources", async (req, res) => {
 // Ruta para obtener recursos por categoría
 
 //aaa
-router.get("/resources/:category", (req, res) => {
+// Ruta para obtener recursos por categoría
+router.get("/resources/:category", async (req, res) => {
     const { category } = req.params;
-    resourceSchema
-    .find(category)
-    .then((data) => {
-        if (data) {
-            // Categoría encontrada exitosamente
-            res.status(200).json({ message: 'Categoria encontrada exitosamente', state: 1, list: data });
-        } else {
-            // Categoría no encontrada
-            res.status(400).json({ message: 'Categoria no encontrada', state: 0 });
+    try {
+        // Realizar una consulta para buscar recursos por categoría
+        const resources = await Resource.find({ category });
+
+        if (!resources || resources.length === 0) {
+            return res.status(404).json({ message: "Recursos no encontrados para la categoría especificada" });
         }
-    })
-    .catch((error) => {
-        // Error interno del servidor
-        res.status(500).json({ message: "Error al obtener categorias", error: error.message });
-    });
+
+        res.json(resources);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 module.exports = router;
