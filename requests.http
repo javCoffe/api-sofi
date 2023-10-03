@@ -32,10 +32,10 @@ GET https://server-sofi.onrender.com/api/resources HTTP/1.1
 GET https://server-sofi.onrender.com/api/resources/comprehension HTTP/1.1
 
 ###
-GET https://server-sofi.onrender.com/api/resources/by-category/communication HTTP/1.1
+GET https://server-sofi.onrender.com/api/resources/communication HTTP/1.1
 
 ###
-GET https://server-sofi.onrender.com/api/resources/by-category/expression HTTP/1.1
+GET https://server-sofi.onrender.com/api/resources/expression HTTP/1.1
 
 ###
 POST https://server-sofi.onrender.com/api/login HTTP/1.1
