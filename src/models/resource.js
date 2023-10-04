@@ -18,7 +18,7 @@ const resourceSchema = mongoose.Schema({
         required: true,
         
     },
-        link: {
+        url: {
         type: String,
         required: true,
     },
