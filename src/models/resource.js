@@ -16,6 +16,11 @@ const resourceSchema = mongoose.Schema({
     icon: {
         type: String,
         required: true,
+        
+    },
+        link: {
+        type: String,
+        required: true,
     },
 });
 

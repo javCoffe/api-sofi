@@ -22,7 +22,8 @@ Content-Type: application/json
     "name": "libro_Prueba4",
     "path": "/ruta/recurso",
     "category": "expression",
-    "icon": "icono6Exp.png"
+    "icon": "icono6Exp.png",
+    "link": "www.google.com"
 }
 ###
 GET https://server-sofi.onrender.com/api/resources HTTP/1.1
