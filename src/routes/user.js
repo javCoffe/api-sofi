@@ -287,7 +287,7 @@ router.get("/resources/:category", async (req, res) => {
 });
 
 // Ruta para verificar la existencia de un correo electrónico
-router.post('/users/:email', async (req, res) => {
+router.post('/users/check-email', async (req, res) => {
     const { email } = req.body;
 
     try {
@@ -308,7 +308,7 @@ router.post('/users/:email', async (req, res) => {
 
 // Ruta para verificar la existencia de un correo electrónico
 // Ruta para verificar la respuesta de seguridad
-router.post('/users/:firstQuestion', async (req, res) => {
+router.post('/users/check-security-answer', async (req, res) => {
     const { email, firstQuestion } = req.body;
 
     try {
