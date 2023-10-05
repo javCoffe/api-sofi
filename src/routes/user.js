@@ -307,19 +307,18 @@ router.post('/users/check-email', async (req, res) => {
 });
 
 // Ruta para verificar la existencia de un correo electrónico
-// Ruta para verificar la respuesta de seguridad
 router.post('/users/check-security-answer', async (req, res) => {
     const { email, firstQuestion } = req.body;
 
     try {
-        const users = await userSchema.findOne(email);
+        const user = await userSchema.findOne({ email }); // Utiliza un objeto como filtro
 
-        if (!users) {
+        if (!user) {
             return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
         }
 
         // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
-        const matchingQuestion = users.find(q => q.firstQuestion === firstQuestion);
+        const matchingQuestion = user.securityQuestions.find(q => q.firstQuestion === firstQuestion);
 
         if (matchingQuestion) {
             res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
