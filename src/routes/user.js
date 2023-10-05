@@ -312,7 +312,7 @@ router.post('/users/check-security-answer', async (req, res) => {
     const { email, firstQuestion } = req.body;
 
     try {
-        const user = await userSchema.find(email);
+        const user = await userSchema.findOne(email);
 
         if (!user) {
             return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
