@@ -31,7 +31,6 @@ POST https://server-sofi.onrender.com/api/users/firstQuestion HTTP/1.1
 Content-Type: application/json
 
 {
-    "_id": "651a4031e16d477962ef197e",
     "firstQuestion": "papaya"
 }
 
