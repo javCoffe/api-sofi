@@ -308,7 +308,7 @@ router.post('/users/check-email', async (req, res) => {
 
 // Ruta para verificar la existencia de un correo electrónico
 router.post('/users/check-security-answer', async (req, res) => {
-    const { email, firstQuestion } = req.body;
+    const { email, firstQuestion, secondQuestion, thirdQuestion } = req.body;
 
     try {
         // Buscar el usuario por correo electrónico
@@ -319,9 +319,11 @@ router.post('/users/check-security-answer', async (req, res) => {
         }
 
         // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
-        const securityQuestion = user.firstQuestion;
-
-        if (securityQuestion === firstQuestion) {
+        const securityQuestion1 = user.firstQuestion;
+        const securityQuestion2 = user.secondQuestion;
+        const securityQuestion3 = user.thirdQuestion;
+        
+        if (securityQuestion1 === firstQuestion && securityQuestion2 === secondQuestion && securityQuestion3 === thirdQuestion) {
             res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
         } else {
             res.status(400).json({ message: 'Respuesta de seguridad incorrecta', state: 0 });

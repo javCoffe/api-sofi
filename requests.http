@@ -32,7 +32,9 @@ Content-Type: application/json
 
 {
     "email": "dgonzalez@autonoma.edu.pe",
-    "firstQuestion": "tallarín verde con bisteck"
+    "firstQuestion": "tallarín verde con bisteck",
+    "secondQuestion": "tallarín verde con bisteck",
+    "thirttQuestion": "tallarín verde con bisteck"
 }
 
 ###
