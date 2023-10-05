@@ -307,13 +307,13 @@ router.post('/users/:email', async (req, res) => {
 });
 
 // Ruta para verificar la existencia de un correo electrónico
-router.post('/users/:firstQuestion', async (req, res) => {
+router.post('/userq/:firstQuestion', async (req, res) => {
     const { firstQuestion } = req.body;
 
     try {
-        const users = await userSchema.findOne({ firstQuestion });
+        const userq = await userSchema.findOne({ firstQuestion });
 
-        if (users) {
+        if (userq) {
             // Correo electrónico encontrado en la base de datos
             res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
         } else {
