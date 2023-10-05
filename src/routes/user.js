@@ -307,23 +307,29 @@ router.post('/users/:email', async (req, res) => {
 });
 
 // Ruta para verificar la existencia de un correo electrónico
-router.post('/userq/:firstQuestion', async (req, res) => {
-    const { firstQuestion } = req.body;
+// Ruta para verificar la respuesta de seguridad
+router.post('/users/:firstQuestion', async (req, res) => {
+    const { _id, firstQuestion } = req.body;
 
     try {
-        const userq = await userSchema.findOne({ firstQuestion });
+        const user = await userSchema.findById(_id);
 
-        if (userq) {
-            // Correo electrónico encontrado en la base de datos
+        if (!user) {
+            return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
+        }
+
+        // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
+        const matchingQuestion = user.find(q => q.firstQuestion === firstQuestion);
+
+        if (matchingQuestion) {
             res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
         } else {
-            // Correo electrónico no encontrado en la base de datos
             res.status(400).json({ message: 'Respuesta de seguridad incorrecta', state: 0 });
         }
     } catch (error) {
-        // Error al buscar en la base de datos
         res.status(500).json({ message: 'Error al verificar la respuesta de seguridad', error: error.message });
     }
 });
+
 
 module.exports = router;

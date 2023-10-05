@@ -31,7 +31,7 @@ POST https://server-sofi.onrender.com/api/users/firstQuestion HTTP/1.1
 Content-Type: application/json
 
 {
-    "firstQuestion": "Respuesta1"
+    "firstQuestion": "Respuesta"
 }
 
 ###
