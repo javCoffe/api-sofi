@@ -287,13 +287,13 @@ router.get("/resources/:category", async (req, res) => {
 });
 
 // Ruta para verificar la existencia de un correo electrónico
-router.post('/check-email', async (req, res) => {
+router.post('/users/:email', async (req, res) => {
     const { email } = req.body;
 
     try {
-        const user = await userSchema.findOne({ email });
+        const users = await userSchema.findOne({ email });
 
-        if (user) {
+        if (users) {
             // Correo electrónico encontrado en la base de datos
             res.status(200).json({ message: 'Correo electrónico registrado', state: 1 });
         } else {

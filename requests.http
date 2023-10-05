@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 ###
-POST https://server-sofi.onrender.com/api/users/check-email HTTP/1.1
+POST https://server-sofi.onrender.com/api/users/email HTTP/1.1
 Content-Type: application/json
 
 {
