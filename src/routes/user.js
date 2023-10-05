@@ -309,10 +309,10 @@ router.post('/users/:email', async (req, res) => {
 // Ruta para verificar la existencia de un correo electrónico
 // Ruta para verificar la respuesta de seguridad
 router.post('/users/:firstQuestion', async (req, res) => {
-    const { _id, firstQuestion } = req.body;
+    const { email, firstQuestion } = req.body;
 
     try {
-        const user = await userSchema.findById(_id);
+        const user = await userSchema.findById(email);
 
         if (!user) {
             return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
