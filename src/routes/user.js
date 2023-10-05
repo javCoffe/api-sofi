@@ -287,7 +287,7 @@ router.get("/resources/:category", async (req, res) => {
 });
 
 // Ruta para verificar la existencia de un correo electrónico
-router.post('/users/check-email', async (req, res) => {
+router.post('/users/email', async (req, res) => {
     const { email } = req.body;
 
     try {
