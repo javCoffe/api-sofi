@@ -319,7 +319,7 @@ router.post('/users/check-security-answer', async (req, res) => {
         }
 
         // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
-        const matchingQuestion = user.findOne(q => q.firstQuestion === firstQuestion);
+        const matchingQuestion = user.find(q => q.firstQuestion === firstQuestion);
 
         if (matchingQuestion) {
             res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
