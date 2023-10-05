@@ -312,14 +312,14 @@ router.post('/users/check-security-answer', async (req, res) => {
     const { email, firstQuestion } = req.body;
 
     try {
-        const user = await userSchema.findOne(email);
+        const users = await userSchema.findOne(email);
 
-        if (!user) {
+        if (!users) {
             return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
         }
 
         // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
-        const matchingQuestion = user.find(q => q.firstQuestion === firstQuestion);
+        const matchingQuestion = users.find(q => q.firstQuestion === firstQuestion);
 
         if (matchingQuestion) {
             res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
