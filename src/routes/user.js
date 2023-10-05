@@ -286,4 +286,25 @@ router.get("/resources/:category", async (req, res) => {
     }
 });
 
+// Ruta para verificar la existencia de un correo electrónico
+router.post('/check-email', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await userSchema.findOne({ email });
+
+        if (user) {
+            // Correo electrónico encontrado en la base de datos
+            res.status(200).json({ message: 'Correo electrónico registrado', state: 1 });
+        } else {
+            // Correo electrónico no encontrado en la base de datos
+            res.status(400).json({ message: 'Correo electrónico no registrado', state: 0 });
+        }
+    } catch (error) {
+        // Error al buscar en la base de datos
+        res.status(500).json({ message: 'Error al verificar el correo electrónico', error: error.message });
+    }
+});
+
+
 module.exports = router;
