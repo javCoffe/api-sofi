@@ -177,12 +177,12 @@ router.get("/users/:id/logins", async (req, res) => {
 
 
 // Ruta para restablecer la contraseña utilizando el correo electrónico
-router.put("/users/change-password", async (req, res) => {
+router.post("/users/reset-password", async (req, res) => {
     const { email, newPassword } = req.body;
 
     try {
         // Busca un usuario por correo electrónico
-        const user = await userSchema.findOne({ email: email });
+        const user = await userSchema.findOne({ email });
 
         if (!user) {
             // Usuario no encontrado
