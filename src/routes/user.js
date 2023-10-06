@@ -189,7 +189,7 @@ router.get("/users/reset-password/:token", async (req, res) => {
 
 // Ruta para actualizar la contraseña del usuario
 router.put("/users/reset-password", async (req, res) => {
-    const { email, newPassword } = req.body;
+    const { email, password } = req.body;
 
     try {
         // Busca un usuario por correo electrónico
@@ -203,7 +203,7 @@ router.put("/users/reset-password", async (req, res) => {
         // Actualiza la contraseña del usuario
         // Aquí debes usar tu lógica para almacenar la nueva contraseña de forma segura en la base de datos
         // Por ejemplo, puedes usar bcrypt para cifrar la nueva contraseña antes de almacenarla en el documento del usuario
-        user.password = newPassword;
+        user.password = password;
 
         // Guarda los cambios en la base de datos
         await user.save();
