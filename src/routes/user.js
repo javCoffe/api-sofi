@@ -182,7 +182,7 @@ router.put("/users/change-password", async (req, res) => {
 
     try {
         // Busca un usuario por correo electrónico
-        const user = await userSchema.findOne({ email });
+        const user = await userSchema.findOne({ email: email });
 
         if (!user) {
             // Usuario no encontrado
