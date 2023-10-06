@@ -176,18 +176,6 @@ router.get("/users/:id/logins", async (req, res) => {
 });
 
 
-// Ruta para solicitar un restablecimiento de contraseña
-router.post("/users/reset-password-request", async (req, res) => {
-    // Lógica para generar un token único y enviar un correo electrónico al usuario
-    // con un enlace que incluye el token
-});
-
-// Ruta para restablecer la contraseña utilizando el token
-router.get("/users/reset-password/:token", async (req, res) => {
-    // Lógica para verificar y utilizar el token para restablecer la contraseña
-});
-
-
 // Ruta para restablecer la contraseña utilizando el correo electrónico
 router.put("/users/change-password", async (req, res) => {
     const { email, newPassword } = req.body;
@@ -214,6 +202,7 @@ router.put("/users/change-password", async (req, res) => {
         res.status(500).json({ message: 'Error al restablecer la contraseña', error: error.message });
     }
 });
+
 
 
 
