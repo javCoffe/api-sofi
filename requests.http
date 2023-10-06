@@ -51,7 +51,7 @@ Content-Type: application/json
 
 {
     "email": "dgonzalez@autonoma.edu.pe",
-    "newPassword": "nueva_contraseña"
+    "password": "nueva_contraseña"
 }
 
 
