@@ -45,6 +45,14 @@ Content-Type: application/json
     "email": "dgonzalez@autonoma.edu.pe"
 }
 
+PUT https://server-sofi.onrender.com/api/users/reset-password HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "dgonzalez@autonoma.edu.pe",
+    "newPassword": "nueva_contraseña"
+}
+
 
 ###
 GET https://server-sofi.onrender.com/api/resources HTTP/1.1

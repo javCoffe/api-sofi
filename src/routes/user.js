@@ -187,6 +187,36 @@ router.get("/users/reset-password/:token", async (req, res) => {
     // Lógica para verificar y utilizar el token para restablecer la contraseña
 });
 
+// Ruta para actualizar la contraseña del usuario
+router.put("/users/reset-password", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Busca un usuario por correo electrónico
+        const user = await userSchema.findOne({ email });
+
+        if (!user) {
+            // Usuario no encontrado
+            return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
+        }
+
+        // Actualiza la contraseña del usuario
+        // Aquí debes usar tu lógica para almacenar la nueva contraseña de forma segura en la base de datos
+        // Por ejemplo, puedes usar bcrypt para cifrar la nueva contraseña antes de almacenarla en el documento del usuario
+        user.password = password;
+
+        // Guarda los cambios en la base de datos
+        await user.save();
+
+        // Respuesta exitosa
+        res.status(200).json({ message: 'Contraseña actualizada exitosamente', state: 1 });
+    } catch (error) {
+        // Error interno del servidor
+        res.status(500).json({ message: 'Error al actualizar la contraseña', error: error.message });
+    }
+});
+
+
 //aaaaaa kakaroto ven y sana mi dolooooooooooooooooor
 const Event = require("../models/event"); // Importa el modelo de evento
 
@@ -219,7 +249,6 @@ router.get("/events/:id", async (req, res) => {
 const Resource = require("../models/resource"); // Asegúrate de importar el modelo Resource correctamente
 
 // Ruta para crear un nuevo recurso
-// Ruta para crear un nuevo recurso
 router.post("/resources", async (req, res) => {
     try {
         // Extraer los datos del cuerpo de la solicitud
@@ -248,7 +277,6 @@ router.post("/resources", async (req, res) => {
 });
 
 
-// Ruta para listar todos los recursos
 // Ruta para listar todos los recursos
 router.get("/resources", async (req, res) => {
     try {
