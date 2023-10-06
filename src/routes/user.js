@@ -189,7 +189,7 @@ router.get("/users/reset-password/:token", async (req, res) => {
 
 
 // Ruta para restablecer la contraseña utilizando el correo electrónico
-router.put("/users/reset-password", async (req, res) => {
+router.put("/users/change-password", async (req, res) => {
     const { email, newPassword } = req.body;
 
     try {
