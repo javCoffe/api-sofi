@@ -250,17 +250,17 @@ const Resource = require("../models/resource"); // Asegúrate de importar el mod
 router.post("/resources", async (req, res) => {
     try {
         // Extraer los datos del cuerpo de la solicitud
-        const {name, path, category, icon, url} = req.body;
+        const {name, path, category, icon, url, state} = req.body;
 
         // Validar los datos antes de crear el recurso (por ejemplo, asegurarse de que todos los campos requeridos estén presentes)
 
-        if (!name || !path || !category || !icon || !url) {
+        if (!name || !path || !category || !icon || !url || !state) {
             // Datos de solicitud incompletos (error 400)
             return res.status(400).json({message: "Datos de solicitud incompletos", state: 0});
         }
 
         // Crear una nueva instancia del modelo Resource
-        const newResource = new Resource({name, path, category, icon, url});
+        const newResource = new Resource({name, path, category, icon, url, state});
 
         // Guardar el nuevo recurso en la base de datos
         const savedResource = await newResource.save();

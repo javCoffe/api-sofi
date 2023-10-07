@@ -19,11 +19,12 @@ POST https://server-sofi.onrender.com/api/resources HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "web_Prueba2",
-    "path": "/ruta/recurso",
-    "category": "web",
-    "icon": "icono6Exp.png",
-    "url": "www.youtube.com"
+    "name": "web_Prueba3",
+    "path": "assets/imgs/resources/internet.png",
+    "category": "preposition",
+    "icon": "internet",
+    "url": "-",
+    "state": "0"
 }
 
 ###
