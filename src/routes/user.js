@@ -4,22 +4,22 @@ const userSchema = require("../models/user");
 const router = express.Router();
 // Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
 
     try {
-        const user = await userSchema.findOne({ email, password });
+        const user = await userSchema.findOne({email, password});
 
         if (user) {
             // Usuario encontrado, puedes hacer lo que necesites, como generar un token de autenticación
-            const { _id, email } = user;
-            res.status(200).json({ message: 'Inicio de sesión exitoso', state: 1, userId: _id });
+            const {_id, email} = user;
+            res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
         } else {
             // Usuario no encontrado o contraseña incorrecta
-            res.status(400).json({ message: 'Correo electrónico o contraseña incorrectos', state: 0 });
+            res.status(400).json({message: 'Correo electrónico o contraseña incorrectos', state: 0});
         }
     } catch (error) {
         // Error al buscar en la base de datos
-        res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
+        res.status(500).json({message: 'Error al iniciar sesión', error: error.message});
     }
 });
 
@@ -29,69 +29,73 @@ router.post('/login', async (req, res) => {
 router.post("/users", (req, res) => {
     const user = userSchema(req.body);
     user
-      .save()
-      .then((data) => {
-        // Usuario creado exitosamente
-        res.status(200).json({ message: 'Usuario creado exitosamente', state: 1, userData: data });
-      })
-      .catch((error) => {
-        if (error.name === 'ValidationError') {
-          // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
-          res.status(400).json({ message: 'Error de validación de datos', state: 0, error: error.message });
-        } else {
-          // Error interno del servidor
-          res.status(500).json({ message: 'Error interno del servidor', error: error.message });
-        }
-      });
-  });
+        .save()
+        .then((data) => {
+            // Usuario creado exitosamente
+            res.status(200).json({message: 'Usuario creado exitosamente', state: 1, userData: data});
+        })
+        .catch((error) => {
+            if (error.name === 'ValidationError') {
+                // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
+                res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
+            } else {
+                // Error interno del servidor
+                res.status(500).json({message: 'Error interno del servidor', error: error.message});
+            }
+        });
+});
 
 
 // get all users
 // get all users
 router.get("/users", (req, res) => {
     userSchema
-    .find()
-    .then((data) => {
-        // Usuarios encontrados exitosamente
-        res.status(200).json({ message: 'Usuarios encontrados exitosamente', state: 1, users: data });
-    })
-    .catch((error) => {
-        if (error.name === 'CastError') {
-            // Error de solicitud incorrecta (por ejemplo, un ID no válido)
-            res.status(400).json({ message: 'Solicitud incorrecta al listar usuarios', state: 0, error: error.message });
-        } else {
-            // Error interno del servidor
-            res.status(500).json({ message: "Error al listar los usuarios", error: error.message });
-        }
-    });
+        .find()
+        .then((data) => {
+            // Usuarios encontrados exitosamente
+            res.status(200).json({message: 'Usuarios encontrados exitosamente', state: 1, users: data});
+        })
+        .catch((error) => {
+            if (error.name === 'CastError') {
+                // Error de solicitud incorrecta (por ejemplo, un ID no válido)
+                res.status(400).json({
+                    message: 'Solicitud incorrecta al listar usuarios',
+                    state: 0,
+                    error: error.message
+                });
+            } else {
+                // Error interno del servidor
+                res.status(500).json({message: "Error al listar los usuarios", error: error.message});
+            }
+        });
 });
 
 // get a user
 // get a user
 router.get("/users/:id", (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
     userSchema
-    .findById(id)
-    .then((data) => {
-        if (data) {
-            // Usuario encontrado exitosamente
-            res.status(200).json({ message: 'Usuario encontrado exitosamente', state: 1, user: data });
-        } else {
-            // Usuario no encontrado
-            res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
-        }
-    })
-    .catch((error) => {
-        // Error interno del servidor
-        res.status(500).json({ message: "Error al obtener el usuario", error: error.message });
-    });
+        .findById(id)
+        .then((data) => {
+            if (data) {
+                // Usuario encontrado exitosamente
+                res.status(200).json({message: 'Usuario encontrado exitosamente', state: 1, user: data});
+            } else {
+                // Usuario no encontrado
+                res.status(400).json({message: 'Usuario no encontrado', state: 0});
+            }
+        })
+        .catch((error) => {
+            // Error interno del servidor
+            res.status(500).json({message: "Error al obtener el usuario", error: error.message});
+        });
 });
 
 
 // update a user
 // update a user
 router.put("/users/:id", (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
     const {
         name,
         lastname,
@@ -105,88 +109,95 @@ router.put("/users/:id", (req, res) => {
     } = req.body;
 
     userSchema
-    .updateOne({ _id: id }, {
-        $set: {
-            name,
-            lastname,
-            age,
-            email,
-            studentCode,
-            firstQuestion,
-            secondQuestion,
-            thirdQuestion,
-            password
-        }
-    })
-    .then((data) => {
-        if (data.nModified > 0) {
-            // Usuario actualizado exitosamente
-            res.status(200).json({ message: 'Usuario actualizado exitosamente', state: 1, user: data });
-        } else {
-            // Usuario no encontrado o no se ha realizado ninguna modificación
-            res.status(400).json({ message: 'Usuario no encontrado o no se ha realizado ninguna modificación', state: 0 });
-        }
-    })
-    .catch((error) => {
-        // Error interno del servidor
-        res.status(500).json({ message: "Error al actualizar el usuario", error: error.message });
-    });
+        .updateOne({_id: id}, {
+            $set: {
+                name,
+                lastname,
+                age,
+                email,
+                studentCode,
+                firstQuestion,
+                secondQuestion,
+                thirdQuestion,
+                password
+            }
+        })
+        .then((data) => {
+            if (data.nModified > 0) {
+                // Usuario actualizado exitosamente
+                res.status(200).json({message: 'Usuario actualizado exitosamente', state: 1, user: data});
+            } else {
+                // Usuario no encontrado o no se ha realizado ninguna modificación
+                res.status(400).json({
+                    message: 'Usuario no encontrado o no se ha realizado ninguna modificación',
+                    state: 0
+                });
+            }
+        })
+        .catch((error) => {
+            // Error interno del servidor
+            res.status(500).json({message: "Error al actualizar el usuario", error: error.message});
+        });
 });
 
 
 // delete a user
 // delete a user
 router.delete("/users/:id", (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
 
     userSchema
-    .deleteOne({ _id: id })
-    .then((data) => {
-        if (data.deletedCount > 0) {
-            // Usuario eliminado exitosamente
-            res.status(200).json({ message: 'Usuario eliminado exitosamente', state: 1, user: data });
-        } else {
-            // Usuario no encontrado
-            res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
-        }
-    })
-    .catch((error) => {
-        // Error interno del servidor
-        res.status(500).json({ message: "Error al eliminar el usuario", error: error.message });
-    });
+        .deleteOne({_id: id})
+        .then((data) => {
+            if (data.deletedCount > 0) {
+                // Usuario eliminado exitosamente
+                res.status(200).json({message: 'Usuario eliminado exitosamente', state: 1, user: data});
+            } else {
+                // Usuario no encontrado
+                res.status(400).json({message: 'Usuario no encontrado', state: 0});
+            }
+        })
+        .catch((error) => {
+            // Error interno del servidor
+            res.status(500).json({message: "Error al eliminar el usuario", error: error.message});
+        });
 });
 
 
 // Ruta para listar los inicios de sesión de un usuario específico
 // Ruta para listar los inicios de sesión de un usuario específico
 router.get("/users/:id/logins", async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
     try {
         const user = await userSchema.findById(id);
         if (!user) {
             // Usuario no encontrado (error 404)
-            return res.status(400).json({ message: "Usuario no encontrado", state: 0 });
+            return res.status(400).json({message: "Usuario no encontrado", state: 0});
         }
         // Retorna la lista de inicios de sesión del usuario
-        res.status(200).json({ message: "Inicios de sesión del usuario encontrados", state: 1, loginTimestamps: user.loginTimestamps });
+        res.status(200).json({
+            message: "Inicios de sesión del usuario encontrados",
+            state: 1,
+            loginTimestamps: user.loginTimestamps
+        });
     } catch (error) {
         // Error interno del servidor (error 500)
-        res.status(500).json({ message: "Error al obtener los inicios de sesión del usuario", error: error.message });
+        res.status(500).json({message: "Error al obtener los inicios de sesión del usuario", error: error.message});
     }
 });
 
 
 // Ruta para restablecer la contraseña utilizando el correo electrónico
 router.post("/users/reset-password", async (req, res) => {
-    const { email, newPassword } = req.body;
+    const {email, newPassword} = req.body;
 
     try {
         // Busca un usuario por correo electrónico
-        const user = await userSchema.findOne({ email });
+        const user = await userSchema.findOne({email});
 
         if (!user) {
             // Usuario no encontrado
-            return res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
+            return res.status(400).json({message: 'Usuario no encontrado', state: 0});
         }
 
         // Actualiza la contraseña del usuario con la nueva contraseña proporcionada
@@ -196,14 +207,12 @@ router.post("/users/reset-password", async (req, res) => {
         await user.save();
 
         // Respuesta exitosa
-        res.status(200).json({ message: 'Contraseña restablecida exitosamente', state: 1 });
+        res.status(200).json({message: 'Contraseña restablecida exitosamente', state: 1});
     } catch (error) {
         // Error interno del servidor
-        res.status(500).json({ message: 'Error al restablecer la contraseña', error: error.message });
+        res.status(500).json({message: 'Error al restablecer la contraseña', error: error.message});
     }
 });
-
-
 
 
 //aaaaaa kakaroto ven y sana mi dolooooooooooooooooor
@@ -215,21 +224,21 @@ router.get("/events", async (req, res) => {
         const events = await Event.find();
         res.json(events);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({message: error.message});
     }
 });
 
 // Ruta para obtener un evento específico por ID de mmwbo del usuario
 router.get("/events/:id", async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
     try {
         const event = await Event.findById(id);
         if (!event) {
-            return res.status(404).json({ message: "Evento no encontrado" });
+            return res.status(404).json({message: "Evento no encontrado"});
         }
         res.json(event);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({message: error.message});
     }
 });
 
@@ -241,27 +250,27 @@ const Resource = require("../models/resource"); // Asegúrate de importar el mod
 router.post("/resources", async (req, res) => {
     try {
         // Extraer los datos del cuerpo de la solicitud
-        const { name, path, category, icon, url } = req.body;
+        const {name, path, category, icon, url} = req.body;
 
         // Validar los datos antes de crear el recurso (por ejemplo, asegurarse de que todos los campos requeridos estén presentes)
 
         if (!name || !path || !category || !icon || !url) {
             // Datos de solicitud incompletos (error 400)
-            return res.status(400).json({ message: "Datos de solicitud incompletos", state: 0 });
+            return res.status(400).json({message: "Datos de solicitud incompletos", state: 0});
         }
 
         // Crear una nueva instancia del modelo Resource
-        const newResource = new Resource({ name, path, category, icon, url });
+        const newResource = new Resource({name, path, category, icon, url});
 
         // Guardar el nuevo recurso en la base de datos
         const savedResource = await newResource.save();
 
         // Devolver el recurso creado como respuesta (error 201)
-        res.status(200).json({ message: "Recurso creado exitosamente", state: 1, resource: savedResource });
+        res.status(200).json({message: "Recurso creado exitosamente", state: 1, resource: savedResource});
     } catch (error) {
         // Error interno del servidor (error 500)
         console.error(error);
-        res.status(500).json({ message: "Error al crear el recurso", error: error.message });
+        res.status(500).json({message: "Error al crear el recurso", error: error.message});
     }
 });
 
@@ -273,80 +282,80 @@ router.get("/resources", async (req, res) => {
 
         if (resources.length === 0) {
             // No se encontraron recursos (error 404)
-            return res.status(400).json({ message: "No se encontraron recursos", state: 0 });
+            return res.status(400).json({message: "No se encontraron recursos", state: 0});
         }
 
         // Recursos encontrados con éxito (error 200)
-        res.status(200).json({ message: "Recursos encontrados exitosamente", state: 1, resources });
+        res.status(200).json({message: "Recursos encontrados exitosamente", state: 1, resources});
     } catch (error) {
         // Error interno del servidor (error 500)
-        res.status(500).json({ message: "Error al listar los recursos", error: error.message });
+        res.status(500).json({message: "Error al listar los recursos", error: error.message});
     }
 });
 
 
 // Ruta para obtener recursos por categoría
 router.get("/resources/:category", async (req, res) => {
-    const { category } = req.params;
+    const {category} = req.params;
     try {
         // Realizar una consulta para buscar recursos por categoría
-        const resources = await Resource.find({ category });
+        const resources = await Resource.find({category});
 
         if (!resources || resources.length === 0) {
-            return res.status(400).json({ message: "Recursos no encontrados para la categoría especificada", state: 0 });
+            return res.status(400).json({message: "Recursos no encontrados para la categoría especificada", state: 0});
         }
 
-        res.status(200).json({ message: "Recursos encontrados para la categoría especificada", state: 1, resources });
+        res.status(200).json({message: "Recursos encontrados para la categoría especificada", state: 1, resources});
 
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({message: error.message});
     }
 });
 
 // Ruta para verificar la existencia de un correo electrónico
 router.post('/users/:email', async (req, res) => {
-    const { email } = req.body;
+    const {email} = req.body;
 
     try {
-        const users = await userSchema.findOne({ email });
+        const users = await userSchema.findOne({email});
 
         if (users) {
             // Correo electrónico encontrado en la base de datos
-            res.status(200).json({ message: 'Correo electrónico registrado', state: 1 });
+            res.status(200).json({message: 'Correo electrónico registrado', state: 1});
         } else {
             // Correo electrónico no encontrado en la base de datos
-            res.status(400).json({ message: 'Correo electrónico no registrado', state: 0 });
+            res.status(400).json({message: 'Correo electrónico no registrado', state: 0});
         }
     } catch (error) {
         // Error al buscar en la base de datos
-        res.status(500).json({ message: 'Error al verificar el correo electrónico', error: error.message });
+        res.status(500).json({message: 'Error al verificar el correo electrónico', error: error.message});
     }
 });
 
 // Ruta para verificar la existencia de un correo electrónico
 router.post('/users/check-security-answer', async (req, res) => {
-    const { email, firstQuestion, secondQuestion, thirdQuestion } = req.body;
+    const {email, firstQuestion, secondQuestion, thirdQuestion} = req.body;
 
     try {
         // Buscar el usuario por correo electrónico
-        const user = await userSchema.findOne({ email });
+        const user = await userSchema.findOne({email});
 
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado', state: 0 });
+            return res.status(404).json({message: 'Usuario no encontrado', state: 0});
         }
 
         // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
         const securityQuestion1 = user.firstQuestion;
         const securityQuestion2 = user.secondQuestion;
         const securityQuestion3 = user.thirdQuestion;
-        
+
         if (securityQuestion1 === firstQuestion && securityQuestion2 === secondQuestion && securityQuestion3 === thirdQuestion) {
-            res.status(200).json({ message: 'Respuesta de seguridad verificada', state: 1 });
+            res.status(200).json({message: 'Respuesta de seguridad verificada', state: 1});
         } else {
-            res.status(400).json({ message: 'Respuesta de seguridad incorrecta', state: 0 });
+            res.status(400).json({message: 'Respuesta de seguridad incorrecta', state: 0});
         }
     } catch (error) {
-        res.status(500).json({ message: 'Error al verificar la respuesta de seguridad', error: error.message });
+        res.status(500).json({message: 'Error al verificar la respuesta de seguridad', error: error.message});
     }
 });
 
@@ -356,15 +365,52 @@ router.get("/resources-comprehension", async (req, res) => {
 
     try {
         // Realizar una consulta para buscar recursos por categorías específicas
-        const resources = await Resource.find({ category: { $in: categories } });
+        const resources = await Resource.find({category: {$in: categories}});
 
         if (!resources || resources.length === 0) {
-            return res.status(400).json({ message: "Recursos no encontrados para las categorías especificadas", state: 0 });
+            return res.status(400).json({message: "Recursos no encontrados para la categoría comprehension", state: 0});
         }
 
-        res.status(200).json({ message: "Recursos encontrados para las categorías especificadas", state: 1, resources });
+        res.status(200).json({message: "Recursos encontrados para la categoría comprehension", state: 1, resources});
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({message: error.message});
     }
 });
+
+/*SERVICIO PARA LISTAR LAS CATEGORÍAS DE EXPRESSION*/
+router.get("/resources-expression", async (req, res) => {
+    const categories = ["abc", "numbers", "common-expressions", "colors"];
+
+    try {
+        // Realizar una consulta para buscar recursos por categorías específicas
+        const resources = await Resource.find({category: {$in: categories}});
+
+        if (!resources || resources.length === 0) {
+            return res.status(400).json({message: "Recursos no encontrados para la categoría expression", state: 0});
+        }
+
+        res.status(200).json({message: "Recursos encontrados para la categoría expression", state: 1, resources});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
+
+/*SERVICIO PARA LISTAR LAS CATEGORÍAS DE COMUNICATION*/
+router.get("/resources-comunication", async (req, res) => {
+    const categories = ["adverb", "preposition"];
+
+    try {
+        // Realizar una consulta para buscar recursos por categorías específicas
+        const resources = await Resource.find({category: {$in: categories}});
+
+        if (!resources || resources.length === 0) {
+            return res.status(400).json({message: "Recursos no encontrados para la categoría comunication", state: 0});
+        }
+
+        res.status(200).json({message: "Recursos encontrados para la categoría comunication", state: 1, resources});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
+
 module.exports = router;

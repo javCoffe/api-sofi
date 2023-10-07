@@ -66,6 +66,11 @@ GET https://server-sofi.onrender.com/api/resources HTTP/1.1
 GET https://server-sofi.onrender.com/api/resources-comprehension HTTP/1.1
 
 ###
+GET https://server-sofi.onrender.com/api/resources-expression HTTP/1.1
+
+###
+GET https://server-sofi.onrender.com/api/resources-comunicationHTTP/1.1
+###
 GET https://server-sofi.onrender.com/api/resources/comprehension HTTP/1.1
 
 ###
