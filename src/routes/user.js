@@ -413,28 +413,28 @@ router.get("/resources-comunication", async (req, res) => {
     }
 });
 
-router.put("/resources-state/:id", (req, res) => {
-    const { id } = req.params;
-    const { state } = req.body;
+router.put("/resources-state/:id", async (req, res) => {
+    const {id} = req.params;
+    const {state} = req.body;
 
-    Resource.updateOne({ _id: id }, {
-        $set: {
-            state
+    try {
+        const updatedResource = await Resource.findByIdAndUpdate(id, {state}, {new: true});
+
+        if (updatedResource) {
+            // Estado de la imagen actualizado exitosamente
+            res.status(200).json({
+                message: 'Estado de la imagen actualizado exitosamente',
+                state: 1,
+                resource: updatedResource
+            });
+        } else {
+            // Imagen no encontrada
+            res.status(400).json({message: 'Imagen no encontrada', state: 0});
         }
-    })
-        .then((data) => {
-            if (data.nModified > 0) {
-                // Estado de la imagen actualizado exitosamente
-                res.status(200).json({ message: 'Estado de la imagen actualizado exitosamente', state: 1, resource: data });
-            } else {
-                // Imagen no encontrada o no se ha realizado ninguna modificación
-                res.status(400).json({ message: 'Imagen no encontrada o no se ha realizado ninguna modificación', state: 0 });
-            }
-        })
-        .catch((error) => {
-            // Error interno del servidor
-            res.status(500).json({ message: "Error al actualizar el estado de la imagen", error: error.message });
-        });
+    } catch (error) {
+        // Error interno del servidor
+        res.status(500).json({message: "Error al actualizar el estado de la imagen", error: error.message});
+    }
 });
 
 module.exports = router;
