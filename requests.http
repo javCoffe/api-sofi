@@ -3,15 +3,15 @@ POST https://server-sofi.onrender.com/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "RRRR",
-    "lastname": "González",
-    "age": "23",
-    "email": "ZZZZ@gmail.com",
-    "studentCode": "A000001",
-    "firstQuestion": "Respuesta1",
-    "secondQuestion": "Respuesta2",
-    "thirdQuestion": "Respuesta3",
-    "password": "ZZZZ"
+  "name": "RRRR",
+  "lastname": "González",
+  "age": "23",
+  "email": "ZZZZ@gmail.com",
+  "studentCode": "A000001",
+  "firstQuestion": "Respuesta1",
+  "secondQuestion": "Respuesta2",
+  "thirdQuestion": "Respuesta3",
+  "password": "ZZZZ"
 }
 
 ###
@@ -19,12 +19,12 @@ POST https://server-sofi.onrender.com/api/resources HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "web_Prueba3",
-    "path": "assets/imgs/resources/internet.png",
-    "category": "preposition",
-    "icon": "internet",
-    "url": "-",
-    "state": "0"
+  "name": "web_Prueba3",
+  "path": "assets/imgs/resources/internet.png",
+  "category": "preposition",
+  "icon": "internet",
+  "url": "-",
+  "state": "0"
 }
 
 ###
@@ -32,10 +32,10 @@ POST https://server-sofi.onrender.com/api/users/check-security-answer HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "dgonzalez@autonoma.edu.pe",
-    "firstQuestion": "tallarín verde con bisteck",
-    "secondQuestion": "Roma",
-    "thirdQuestion": "pipoa"
+  "email": "dgonzalez@autonoma.edu.pe",
+  "firstQuestion": "tallarín verde con bisteck",
+  "secondQuestion": "Roma",
+  "thirdQuestion": "pipoa"
 }
 
 ###
@@ -43,7 +43,7 @@ POST https://server-sofi.onrender.com/api/users/email HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "dgonzalez@autonoma.edu.pe"
+  "email": "dgonzalez@autonoma.edu.pe"
 }
 
 
@@ -53,8 +53,8 @@ POST https://server-sofi.onrender.com/api/users/reset-password HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "dgonzalez@autonoma.edu.pe",
-    "newPassword": "nueva_contraseña"
+  "email": "dgonzalez@autonoma.edu.pe",
+  "newPassword": "nueva_contraseña"
 }
 
 
@@ -71,6 +71,7 @@ GET https://server-sofi.onrender.com/api/resources-expression HTTP/1.1
 
 ###
 GET https://server-sofi.onrender.com/api/resources-comunicationHTTP/1.1
+
 ###
 GET https://server-sofi.onrender.com/api/resources/comprehension HTTP/1.1
 
@@ -85,8 +86,8 @@ POST https://server-sofi.onrender.com/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "dgonzalez@autonoma.edu.pe",
-    "password": "1234"
+  "email": "dgonzalez@autonoma.edu.pe",
+  "password": "1234"
 }
 
 
@@ -97,19 +98,26 @@ GET https://server-sofi.onrender.com/api/users HTTP/1.1
 GET https://server-sofi.onrender.com/api/users/651ac5355091a88e3f957968 HTTP/1.1
 
 ###
+PUT https://server-sofi.onrender.com/api/resources/6519f13adcaa91d20f5bbc1e HTTP/1.1
+Content-Type: application/json
+{
+  "state": "Prue ZZZ",
+}
+
+###
 PUT https://server-sofi.onrender.com/api/users/65173b12f08a04139e5f8fce HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Prue ZZZ",
-    "lastname": "González",
-    "age": "23",
-    "email": "prueZ@gmail.com",
-    "studentCode": "A000001",
-    "firstQuestion": "Respuesta1",
-    "secondQuestion": "Respuesta2",
-    "thirdQuestion": "Respuesta3",
-    "password": "a111"
+  "name": "Prue ZZZ",
+  "lastname": "González",
+  "age": "23",
+  "email": "prueZ@gmail.com",
+  "studentCode": "A000001",
+  "firstQuestion": "Respuesta1",
+  "secondQuestion": "Respuesta2",
+  "thirdQuestion": "Respuesta3",
+  "password": "a111"
 }
 
 ###
