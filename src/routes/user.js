@@ -413,7 +413,7 @@ router.get("/resources-comunication", async (req, res) => {
     }
 });
 
-router.put("/resources/:id", (req, res) => {
+router.put("/resources-state/:id", (req, res) => {
     const { id } = req.params;
     const { state } = req.body;
 
