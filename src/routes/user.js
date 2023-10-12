@@ -487,10 +487,10 @@ router.get("/entity-list", async (req, res) => {
 /*SERVICIO PARA ACTUALIZAR EL ESTADO DE LAS ENTIDADES*/
 router.put("/entity-state/:id", async (req, res) => {
     const {id} = req.params;
-    const {state} = req.body;
+    const {stateEntity} = req.body;
 
     try {
-        const updatedEntity = await entitySchema.findByIdAndUpdate(id, {state}, {new: true});
+        const updatedEntity = await entitySchema.findByIdAndUpdate(id, {stateEntity}, {new: true});
 
         if (updatedEntity) {
             res.status(200).json({
