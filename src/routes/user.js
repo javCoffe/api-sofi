@@ -1,5 +1,6 @@
 const express = require("express");
 const userSchema = require("../models/user");
+const entitySchema = require("../models/entidad");
 
 const router = express.Router();
 // Ruta para iniciar sesión
@@ -412,7 +413,7 @@ router.get("/resources-comunication", async (req, res) => {
         res.status(500).json({message: error.message});
     }
 });
-
+/*SERVICIO PARA ACTUALIZAR EL ESTADO DEL APRENDIZAJE*/
 router.put("/resources-state/:id", async (req, res) => {
     const {id} = req.params;
     const {state} = req.body;
@@ -437,4 +438,31 @@ router.put("/resources-state/:id", async (req, res) => {
     }
 });
 
+/*SERVICIO PARA CREAR LA ENTIDAD*/
+router.post("/entity", async (req, res) => {
+    try {
+        // Extraer los datos del cuerpo de la solicitud
+        const {nameEntity, imgEntity, stateEntity} = req.body;
+
+        // Validar los datos antes de crear el recurso (por ejemplo, asegurarse de que todos los campos requeridos estén presentes)
+
+        if (!nameEntity || !imgEntity || !stateEntity) {
+            // Datos de solicitud incompletos (error 400)
+            return res.status(400).json({message: "Datos de solicitud incompletos", state: 0});
+        }
+
+        // Crear una nueva instancia del modelo Resource
+        const newEntity = new entitySchema({nameEntity, imgEntity, stateEntity});
+
+        // Guardar el nuevo recurso en la base de datos
+        const savedResource = await newEntity.save();
+
+        // Devolver el recurso creado como respuesta (error 201)
+        res.status(200).json({message: "Entidad creada exitosamente", state: 1, resource: savedResource});
+    } catch (error) {
+        // Error interno del servidor (error 500)
+        console.error(error);
+        res.status(500).json({message: "Error al crear la entidad", error: error.message});
+    }
+});
 module.exports = router;

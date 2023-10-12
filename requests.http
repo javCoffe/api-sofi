@@ -117,9 +117,19 @@ Content-Type: application/json
 DELETE https://server-sofi.onrender.com/api/users/65173a7af08a04139e5f8fc8 HTTP/1.1
 
 ###
-PUT https://server-sofi.onrender.com/api/resources-state/6521e77350fea23d59ed68df HTTP/1.1
+PUT https://server-sofi.onrender.com/api/resources-state/6519f13adcaa91d20f5bbc1e HTTP/1.1
 Content-Type: application/json
 
 {
   "state": "0"
+}
+
+###
+POST https://server-sofi.onrender.com/api/entity HTTP/1.1
+Content-Type: application/json
+
+{
+  "nameEntity": "CENTRO EDUCATIVO MARISCAL RAMÓN CASTILLA N°1199",
+  "imgEntity": "assets/imgs/logo.jpg",
+  "stateEntity": "0"
 }
