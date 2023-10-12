@@ -57,9 +57,6 @@ Content-Type: application/json
   "newPassword": "nueva_contraseña"
 }
 
-
-
-
 ###
 GET https://server-sofi.onrender.com/api/resources HTTP/1.1
 
@@ -129,7 +126,18 @@ POST https://server-sofi.onrender.com/api/entity HTTP/1.1
 Content-Type: application/json
 
 {
-  "nameEntity": "CENTRO EDUCATIVO MARISCAL RAMÓN CASTILLA N°1199",
+  "nameEntity": "Colegio B",
   "imgEntity": "assets/imgs/logo.jpg",
   "stateEntity": "0"
 }
+
+###
+PUT https://server-sofi.onrender.com/api/entity-state/6519f13adcaa91d20f5bbc1e HTTP/1.1
+Content-Type: application/json
+
+{
+"stateEntity": "0"
+}
+
+###
+GET https://server-sofi.onrender.com/api/entity-list HTTP/1.1

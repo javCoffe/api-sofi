@@ -465,4 +465,45 @@ router.post("/entity", async (req, res) => {
         res.status(500).json({message: "Error al crear la entidad", error: error.message});
     }
 });
+
+/*SERVICIO PARA LISTAR LAS ENTIDADES*/
+router.get("/entity-list", async (req, res) => {
+    try {
+        const entity = await entitySchema.find();
+
+        if (entity.length === 0) {
+            // No se encontraron recursos (error 404)
+            return res.status(400).json({message: "No se encontraron entidades", state: 0});
+        }
+
+        // Recursos encontrados con éxito (error 200)
+        res.status(200).json({message: "Entidades encontrados exitosamente", state: 1, entity});
+    } catch (error) {
+        // Error interno del servidor (error 500)
+        res.status(500).json({message: "Error al listar las entidades", error: error.message});
+    }
+});
+
+/*SERVICIO PARA ACTUALIZAR EL ESTADO DE LAS ENTIDADES*/
+router.put("/entity-state/:id", async (req, res) => {
+    const {id} = req.params;
+    const {state} = req.body;
+
+    try {
+        const updatedEntity = await entitySchema.findByIdAndUpdate(id, {state}, {new: true});
+
+        if (updatedEntity) {
+            res.status(200).json({
+                message: 'Estado de la entidad actualizada exitosamente',
+                state: 1,
+                entity: updatedEntity
+            });
+        } else {
+            res.status(400).json({message: 'Entidad no encontrada', state: 0});
+        }
+    } catch (error) {
+        // Error interno del servidor
+        res.status(500).json({message: "Error al actualizar el estado de la entidad", error: error.message});
+    }
+});
 module.exports = router;
