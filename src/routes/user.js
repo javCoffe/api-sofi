@@ -467,20 +467,21 @@ router.post("/entity", async (req, res) => {
 });
 
 /*SERVICIO PARA LISTAR LAS ENTIDADES*/
-router.get("/entity-list", async (req, res) => {
+router.get('/entity-list', async (req, res) => {
     try {
-        const entity = await entitySchema.find();
+        const entities = await entitySchema.find();
 
-        if (entity.length === 0) {
+        if (entities.length === 0) {
             // No se encontraron recursos (error 404)
-            return res.status(400).json({message: "No se encontraron entidades", state: 0});
+            return res.status(404).json({ message: 'No se encontraron entidades', state: 0 });
         }
 
         // Recursos encontrados con éxito (error 200)
-        res.status(200).json({message: "Entidades encontrados exitosamente", state: 1, entity});
+        res.status(200).json({ message: 'Entidades encontradas exitosamente', state: 1, entities });
     } catch (error) {
         // Error interno del servidor (error 500)
-        res.status(500).json({message: "Error al listar las entidades", error: error.message});
+        console.error(error);
+        res.status(500).json({ message: 'Error al listar las entidades', error: error.message });
     }
 });
 
