@@ -126,7 +126,7 @@ POST https://server-sofi.onrender.com/api/entity HTTP/1.1
 Content-Type: application/json
 
 {
-  "id_Entity": "1",
+  "id_Entity": "5",
   "nameEntity": "Colegio C",
   "imgEntity": "assets/imgs/logo.jpg",
   "stateEntity": "0"
@@ -137,7 +137,7 @@ PUT https://server-sofi.onrender.com/api/entity-state/652861ea4ae0ed4c66bc7687 H
 Content-Type: application/json
 
 {
-"stateEntity": "0"
+  "stateEntity": "0"
 }
 
 ###
