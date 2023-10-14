@@ -101,6 +101,7 @@ router.put("/users/:id", (req, res) => {
         name,
         lastname,
         age,
+        id_School,
         email,
         studentCode,
         firstQuestion,
@@ -115,6 +116,7 @@ router.put("/users/:id", (req, res) => {
                 name,
                 lastname,
                 age,
+                id_School,
                 email,
                 studentCode,
                 firstQuestion,
@@ -442,17 +444,17 @@ router.put("/resources-state/:id", async (req, res) => {
 router.post("/entity", async (req, res) => {
     try {
         // Extraer los datos del cuerpo de la solicitud
-        const {nameEntity, imgEntity, stateEntity} = req.body;
+        const {id_Entity, nameEntity, imgEntity, stateEntity} = req.body;
 
         // Validar los datos antes de crear el recurso (por ejemplo, asegurarse de que todos los campos requeridos estén presentes)
 
-        if (!nameEntity || !imgEntity || !stateEntity) {
+        if (!id_Entity || !nameEntity || !imgEntity || !stateEntity) {
             // Datos de solicitud incompletos (error 400)
             return res.status(400).json({message: "Datos de solicitud incompletos", state: 0});
         }
 
         // Crear una nueva instancia del modelo Resource
-        const newEntity = new entitySchema({nameEntity, imgEntity, stateEntity});
+        const newEntity = new entitySchema({id_Entity, nameEntity, imgEntity, stateEntity});
 
         // Guardar el nuevo recurso en la base de datos
         const savedResource = await newEntity.save();
@@ -473,15 +475,15 @@ router.get('/entity-list', async (req, res) => {
 
         if (entities.length === 0) {
             // No se encontraron recursos (error 404)
-            return res.status(404).json({ message: 'No se encontraron entidades', state: 0 });
+            return res.status(404).json({message: 'No se encontraron entidades', state: 0});
         }
 
         // Recursos encontrados con éxito (error 200)
-        res.status(200).json({ message: 'Entidades encontradas exitosamente', state: 1, entities });
+        res.status(200).json({message: 'Entidades encontradas exitosamente', state: 1, entities});
     } catch (error) {
         // Error interno del servidor (error 500)
         console.error(error);
-        res.status(500).json({ message: 'Error al listar las entidades', error: error.message });
+        res.status(500).json({message: 'Error al listar las entidades', error: error.message});
     }
 });
 

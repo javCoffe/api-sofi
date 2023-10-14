@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const entitySchema = mongoose.Schema({
+    id_Entity: {
+        type: String,
+        required: true,
+    },
     nameEntity: {
         type: String,
         required: true,

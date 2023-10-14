@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    id_School: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true
@@ -35,7 +39,8 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true}
+        required: true
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);

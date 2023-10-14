@@ -126,17 +126,18 @@ POST https://server-sofi.onrender.com/api/entity HTTP/1.1
 Content-Type: application/json
 
 {
-  "nameEntity": "Colegio B",
+  "id_Entity": "1",
+  "nameEntity": "Colegio C",
   "imgEntity": "assets/imgs/logo.jpg",
   "stateEntity": "0"
 }
 
 ###
-PUT https://server-sofi.onrender.com/api/entity-state/6528621b4ae0ed4c66bc7689 HTTP/1.1
+PUT https://server-sofi.onrender.com/api/entity-state/652861ea4ae0ed4c66bc7687 HTTP/1.1
 Content-Type: application/json
 
 {
-"stateEntity": "1"
+"stateEntity": "0"
 }
 
 ###
