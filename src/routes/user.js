@@ -610,7 +610,7 @@ router.post('/create-expression', async (req, res) => {
     });
 });
 /*SERVICIO PARA LISTAR EXPRESSION*/
-router.get('/list-comprehension/:id_User', async (req, res) => {
+router.get('/list-expression/:id_User', async (req, res) => {
     try {
         const {id_User} = req.params;
         if (!id_User) {
