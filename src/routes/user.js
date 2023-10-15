@@ -658,5 +658,30 @@ router.post('/create-communication', async (req, res) => {
 });
 
 /*SERVICIO PARA LISTAR COMMUNICATION*/
-
+router.get('/list-communication/:id_User', async (req, res) => {
+    try {
+        const {id_User} = req.params;
+        if (!id_User) {
+            // Si no se proporciona el id_User en la URL, devuelve un error 400
+            return res.status(400).json({message: 'Se requiere el parámetro id_User en la URL', state: 0});
+        }
+        const communications = await communication.find({id_User});
+        if (communications.length === 0) {
+            // No se encontraron registros de comprensión para el id_User proporcionado (error 404)
+            return res.status(404).json({
+                message: 'No se encontraron registros de communication para el id_User proporcionado',
+                state: 0
+            });
+        }
+        res.status(200).json({
+            message: 'Registros de communication encontrados exitosamente',
+            state: 1,
+            communications
+        });
+    } catch (error) {
+        // Error interno del servidor (error 500)
+        console.error(error);
+        res.status(500).json({message: 'Error al listar los registros de communication', error: error.message});
+    }
+});
 module.exports = router;
