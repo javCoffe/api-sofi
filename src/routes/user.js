@@ -566,8 +566,8 @@ router.post('/create-comprehension', async (req, res) => {
 
 /*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
 router.post('/create-expression', async (req, res) => {
-    const expression = expression(req.body);
-    expression
+    const express = expression(req.body);
+    express
         .save()
         .then((data) => {
             // Usuario creado exitosamente
@@ -585,8 +585,8 @@ router.post('/create-expression', async (req, res) => {
 
 /*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
 router.post('/create-communication', async (req, res) => {
-    const communication = communication(req.body);
-    communication
+    const communi = communication(req.body);
+    communi
         .save()
         .then((data) => {
             // Usuario creado exitosamente
