@@ -10,9 +10,9 @@ const communicationSchema = mongoose.Schema({
         required: true
     },
     stateResource: {
-        type: Number,
+        type: String,
         required: true
     }
 });
 
-module.exports = mongoose.model('CommunicationSchema', communicationSchema);
+module.exports = mongoose.model('Communication', communicationSchema);

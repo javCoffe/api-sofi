@@ -10,9 +10,9 @@ const expressionSchema = mongoose.Schema({
         required: true
     },
     stateResource: {
-        type: Number,
+        type: String,
         required: true
     }
 });
 
-module.exports = mongoose.model('ExpressionSchema', expressionSchema);
+module.exports = mongoose.model('Expression', expressionSchema);

@@ -159,5 +159,5 @@ Content-Type: application/json
 {
   "id_User": "usuario123",
   "id_Resource": "recurso789",
-  "stateResource": 1
+  "stateResource": "1"
 }

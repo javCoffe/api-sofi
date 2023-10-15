@@ -1,7 +1,7 @@
 const express = require("express");
 const userSchema = require("../models/user");
 const entitySchema = require("../models/entidad");
-const comprehensionSchema = require("../models/comprehension");
+const ComprehensionS = require("../models/comprehension");
 
 const router = express.Router();
 // Ruta para iniciar sesión
@@ -545,7 +545,7 @@ router.put("/user-progress/:id", async (req, res) => {
 
 /*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
 router.post('/create-comprehension', async (req, res) => {
-    const comprehension = comprehensionSchema(req.body);
+    const comprehension = ComprehensionS(req.body);
     comprehension
         .save()
         .then((data) => {

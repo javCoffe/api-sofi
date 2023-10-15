@@ -10,9 +10,9 @@ const comprehensionSchema = mongoose.Schema({
         required: true
     },
     stateResource: {
-        type: Number,
+        type: String,
         required: true
     }
 });
 
-module.exports = mongoose.model('ComprehensionSchema', comprehensionSchema);
+module.exports = mongoose.model('Comprehension', comprehensionSchema);
