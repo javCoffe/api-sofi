@@ -181,3 +181,9 @@ Content-Type: application/json
   "id_Resource": "recurso789",
   "stateResource": "1"
 }
+###
+GET https://server-sofi.onrender.com/api/list-comprehension HTTP/1.1
+###
+GET https://server-sofi.onrender.com/api/list-expression HTTP/1.1
+###
+GET https://server-sofi.onrender.com/api/list-communication HTTP/1.1

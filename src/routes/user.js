@@ -545,7 +545,7 @@ router.put("/user-progress/:id", async (req, res) => {
     }
 });
 
-/*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
+/*SERVICIO PARA CREAR LOS COMPREHENSION*/
 router.post('/create-comprehension', async (req, res) => {
     const comprehen = comprehension(req.body);
     comprehen
@@ -563,8 +563,30 @@ router.post('/create-comprehension', async (req, res) => {
         }
     });
 });
+/*SERVICIO PARA LISTAR COMPREHENSION*/
+router.get('/list-comprehension', async (req, res) => {
+    try {
+        const comprehensions = await comprehension.find();
 
-/*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
+        if (comprehensions.length === 0) {
+            // No se encontraron registros de comunicación (error 404)
+            return res.status(404).json({message: 'No se encontraron registros de comunicación', state: 0});
+        }
+
+        // Registros de comunicación encontrados con éxito (error 200)
+        res.status(200).json({
+            message: 'Registros de comprehension encontrados exitosamente',
+            state: 1,
+            comprehensions
+        });
+    } catch (error) {
+        // Error interno del servidor (error 500)
+        console.error(error);
+        res.status(500).json({message: 'Error al listar los registros de comunicación', error: error.message});
+    }
+});
+
+/*SERVICIO PARA CREAR LOS EXPRESSION*/
 router.post('/create-expression', async (req, res) => {
     const express = expression(req.body);
     express
@@ -582,8 +604,27 @@ router.post('/create-expression', async (req, res) => {
         }
     });
 });
+/*SERVICIO PARA LISTAR EXPRESSION*/
+router.get('/list-expression', async (req, res) => {
+    try {
+        const expressions = await expression.find();
 
-/*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
+        if (expressions.length === 0) {
+            // No se encontraron registros de comunicación (error 404)
+            return res.status(404).json({message: 'No se encontraron registros de expression', state: 0});
+        }
+
+        // Registros de comunicación encontrados con éxito (error 200)
+        res.status(200).json({message: 'Registros de expression encontrados exitosamente', state: 1, expressions});
+    } catch (error) {
+        // Error interno del servidor (error 500)
+        console.error(error);
+        res.status(500).json({message: 'Error al listar los registros de comunicación', error: error.message});
+    }
+});
+
+
+/*SERVICIO PARA CREAR COMMUNICATION*/
 router.post('/create-communication', async (req, res) => {
     const communi = communication(req.body);
     communi
@@ -602,4 +643,22 @@ router.post('/create-communication', async (req, res) => {
     });
 });
 
+/*SERVICIO PARA LISTAR COMMUNICATION*/
+router.get('/list-communication', async (req, res) => {
+    try {
+        const communications = await communication.find();
+
+        if (communications.length === 0) {
+            // No se encontraron registros de comunicación (error 404)
+            return res.status(404).json({message: 'No se encontraron registros de comunicación', state: 0});
+        }
+
+        // Registros de comunicación encontrados con éxito (error 200)
+        res.status(200).json({message: 'Registros de comunicación encontrados exitosamente', state: 1, communications});
+    } catch (error) {
+        // Error interno del servidor (error 500)
+        console.error(error);
+        res.status(500).json({message: 'Error al listar los registros de comunicación', error: error.message});
+    }
+});
 module.exports = router;
