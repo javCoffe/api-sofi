@@ -1,7 +1,9 @@
 const express = require("express");
 const userSchema = require("../models/user");
 const entitySchema = require("../models/entidad");
-const ComprehensionS = require("../models/comprehension");
+const comprehension = require("../models/comprehension");
+const expression = require("../models/expression");
+const communication = require("../models/communication");
 
 const router = express.Router();
 // Ruta para iniciar sesión
@@ -545,8 +547,8 @@ router.put("/user-progress/:id", async (req, res) => {
 
 /*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
 router.post('/create-comprehension', async (req, res) => {
-    const comprehension = ComprehensionS(req.body);
-    comprehension
+    const comprehen = comprehension(req.body);
+    comprehen
         .save()
         .then((data) => {
             // Usuario creado exitosamente
@@ -561,4 +563,43 @@ router.post('/create-comprehension', async (req, res) => {
         }
     });
 });
+
+/*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
+router.post('/create-expression', async (req, res) => {
+    const expression = expression(req.body);
+    expression
+        .save()
+        .then((data) => {
+            // Usuario creado exitosamente
+            res.status(200).json({message: 'Registro agregado exitosamente', state: 1, expressionData: data});
+        }).catch((error) => {
+        if (error.name === 'ValidationError') {
+            // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
+            res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
+        } else {
+            // Error interno del servidor
+            res.status(500).json({message: 'Error interno del servidor', error: error.message});
+        }
+    });
+});
+
+/*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
+router.post('/create-communication', async (req, res) => {
+    const communication = communication(req.body);
+    communication
+        .save()
+        .then((data) => {
+            // Usuario creado exitosamente
+            res.status(200).json({message: 'Registro agregado exitosamente', state: 1, communicationData: data});
+        }).catch((error) => {
+        if (error.name === 'ValidationError') {
+            // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
+            res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
+        } else {
+            // Error interno del servidor
+            res.status(500).json({message: 'Error interno del servidor', error: error.message});
+        }
+    });
+});
+
 module.exports = router;
