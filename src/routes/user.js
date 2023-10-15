@@ -564,25 +564,30 @@ router.post('/create-comprehension', async (req, res) => {
     });
 });
 /*SERVICIO PARA LISTAR COMPREHENSION*/
-router.get('/list-comprehension', async (req, res) => {
+router.get('/list-comprehension/:id_User', async (req, res) => {
     try {
-        const comprehensions = await comprehension.find();
-
-        if (comprehensions.length === 0) {
-            // No se encontraron registros de comunicación (error 404)
-            return res.status(404).json({message: 'No se encontraron registros de comunicación', state: 0});
+        const {id_User} = req.params;
+        if (!id_User) {
+            // Si no se proporciona el id_User en la URL, devuelve un error 400
+            return res.status(400).json({message: 'Se requiere el parámetro id_User en la URL', state: 0});
         }
-
-        // Registros de comunicación encontrados con éxito (error 200)
+        const comprehensions = await comprehension.find({id_User});
+        if (comprehensions.length === 0) {
+            // No se encontraron registros de comprensión para el id_User proporcionado (error 404)
+            return res.status(404).json({
+                message: 'No se encontraron registros de comprensión para el id_User proporcionado',
+                state: 0
+            });
+        }
         res.status(200).json({
-            message: 'Registros de comprehension encontrados exitosamente',
+            message: 'Registros de comprensión encontrados exitosamente',
             state: 1,
             comprehensions
         });
     } catch (error) {
         // Error interno del servidor (error 500)
         console.error(error);
-        res.status(500).json({message: 'Error al listar los registros de comunicación', error: error.message});
+        res.status(500).json({message: 'Error al listar los registros de comprehension', error: error.message});
     }
 });
 
@@ -605,21 +610,30 @@ router.post('/create-expression', async (req, res) => {
     });
 });
 /*SERVICIO PARA LISTAR EXPRESSION*/
-router.get('/list-expression', async (req, res) => {
+router.get('/list-comprehension/:id_User', async (req, res) => {
     try {
-        const expressions = await expression.find();
-
-        if (expressions.length === 0) {
-            // No se encontraron registros de comunicación (error 404)
-            return res.status(404).json({message: 'No se encontraron registros de expression', state: 0});
+        const {id_User} = req.params;
+        if (!id_User) {
+            // Si no se proporciona el id_User en la URL, devuelve un error 400
+            return res.status(400).json({message: 'Se requiere el parámetro id_User en la URL', state: 0});
         }
-
-        // Registros de comunicación encontrados con éxito (error 200)
-        res.status(200).json({message: 'Registros de expression encontrados exitosamente', state: 1, expressions});
+        const expressions = await expression.find({id_User});
+        if (expressions.length === 0) {
+            // No se encontraron registros de comprensión para el id_User proporcionado (error 404)
+            return res.status(404).json({
+                message: 'No se encontraron registros de expression para el id_User proporcionado',
+                state: 0
+            });
+        }
+        res.status(200).json({
+            message: 'Registros de expression encontrados exitosamente',
+            state: 1,
+            expressions
+        });
     } catch (error) {
         // Error interno del servidor (error 500)
         console.error(error);
-        res.status(500).json({message: 'Error al listar los registros de comunicación', error: error.message});
+        res.status(500).json({message: 'Error al listar los registros de expression', error: error.message});
     }
 });
 
@@ -644,21 +658,5 @@ router.post('/create-communication', async (req, res) => {
 });
 
 /*SERVICIO PARA LISTAR COMMUNICATION*/
-router.get('/list-communication', async (req, res) => {
-    try {
-        const communications = await communication.find();
 
-        if (communications.length === 0) {
-            // No se encontraron registros de comunicación (error 404)
-            return res.status(404).json({message: 'No se encontraron registros de comunicación', state: 0});
-        }
-
-        // Registros de comunicación encontrados con éxito (error 200)
-        res.status(200).json({message: 'Registros de comunicación encontrados exitosamente', state: 1, communications});
-    } catch (error) {
-        // Error interno del servidor (error 500)
-        console.error(error);
-        res.status(500).json({message: 'Error al listar los registros de comunicación', error: error.message});
-    }
-});
 module.exports = router;
