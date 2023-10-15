@@ -144,10 +144,20 @@ Content-Type: application/json
 GET https://server-sofi.onrender.com/api/entity-list HTTP/1.1
 
 ###
-PUT https://server-sofi.onrender.com/api/user-progress/652861ea4ae0ed4c66bc7687 HTTP/1.1
+PUT https://server-sofi.onrender.com/api/user-progress/652af9e832c2f8c7869fe01f HTTP/1.1
 Content-Type: application/json
 
 {
-  "campo": "progressComprehension",
-  "valor": 12
+  "campo": "progressComunication",
+  "valor": 2
+}
+
+###
+POST https://server-sofi.onrender.com/api/create-comprehension HTTP/1.1
+Content-Type: application/json
+
+{
+  "id_User": "usuario123",
+  "id_Resource": "recurso789",
+  "stateResource": 1
 }

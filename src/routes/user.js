@@ -1,6 +1,7 @@
 const express = require("express");
 const userSchema = require("../models/user");
 const entitySchema = require("../models/entidad");
+const comprehensionSchema = require("../models/comprehension");
 
 const router = express.Router();
 // Ruta para iniciar sesión
@@ -512,20 +513,20 @@ router.put("/entity-state/:id", async (req, res) => {
 
 /*SERVICIO PARA ACTUALIZAR LOS CAMPOS DE PROGRESO*/
 router.put("/user-progress/:id", async (req, res) => {
-    const { id } = req.params;
-    const { campo, valor } = req.body; // Campo y valor a actualizar
+    const {id} = req.params;
+    const {campo, valor} = req.body; // Campo y valor a actualizar
 
     // Verifica que el campo enviado sea uno de los campos permitidos
     const camposPermitidos = ['progressComprehension', 'progressExpression', 'progressComunication'];
     if (!camposPermitidos.includes(campo)) {
-        return res.status(400).json({ message: 'Campo no permitido', state: 0 });
+        return res.status(400).json({message: 'Campo no permitido', state: 0});
     }
 
     // Crea un objeto dinámico para actualizar el campo específico
-    const camposActualizados = { [campo]: valor };
+    const camposActualizados = {[campo]: valor};
 
     try {
-        const updatedUser = await userSchema.findByIdAndUpdate(id, camposActualizados, { new: true });
+        const updatedUser = await userSchema.findByIdAndUpdate(id, camposActualizados, {new: true});
 
         if (updatedUser) {
             res.status(200).json({
@@ -534,11 +535,30 @@ router.put("/user-progress/:id", async (req, res) => {
                 user: updatedUser
             });
         } else {
-            res.status(400).json({ message: 'Usuario no encontrado', state: 0 });
+            res.status(400).json({message: 'Usuario no encontrado', state: 0});
         }
     } catch (error) {
         // Error interno del servidor
-        res.status(500).json({ message: "Error al actualizar el campo del usuario", error: error.message });
+        res.status(500).json({message: "Error al actualizar el campo del usuario", error: error.message});
     }
+});
+
+/*SERVICIO PARA CREAR MEDIANTE POR LOS STATE*/
+router.post('/create-comprehension', async (req, res) => {
+    const comprehension = comprehensionSchema(req.body);
+    comprehension
+        .save()
+        .then((data) => {
+            // Usuario creado exitosamente
+            res.status(200).json({message: 'Registro agregado exitosamente', state: 1, comprehensionData: data});
+        }).catch((error) => {
+        if (error.name === 'ValidationError') {
+            // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
+            res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
+        } else {
+            // Error interno del servidor
+            res.status(500).json({message: 'Error interno del servidor', error: error.message});
+        }
+    });
 });
 module.exports = router;
