@@ -21,7 +21,10 @@ router.post('/login', async (req, res) => {
                 res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
             } else {
                 // entityId no coincide con id_School del usuario
-                res.status(400).json({message: 'La entidad no coincide con el usuario', state: 0});
+                res.status(400).json({
+                    message: 'El colegio no coincide con el usuario. Por favor, comunicarse con el área de Soporte',
+                    state: 0
+                });
             }
         } else {
             // Usuario no encontrado o contraseña incorrecta
