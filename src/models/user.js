@@ -40,15 +40,6 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    progressComprehension: {
-        type: Number,
-    },
-    progressExpression: {
-        type: Number,
-    },
-    progressComunication: {
-        type: Number,
     }
 });
 

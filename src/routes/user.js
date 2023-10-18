@@ -8,18 +8,18 @@ const communication = require("../models/communication");
 const router = express.Router();
 // Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
-    const {email, password} = req.body;
+    const {email, password, entityId} = req.body;
 
     try {
         const user = await userSchema.findOne({email, password});
 
-        if (user) {
-            // Usuario encontrado, puedes hacer lo que necesites, como generar un token de autenticación
-            const {_id, email} = user;
+        if (user && user.id_School === entityId) {
+            // Usuario encontrado y entityId coincide con id_School del usuario
+            const {_id} = user;
             res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
         } else {
-            // Usuario no encontrado o contraseña incorrecta
-            res.status(400).json({message: 'Correo electrónico o contraseña incorrectos', state: 0});
+            // Usuario no encontrado, contraseña incorrecta o entityId no coincide con id_School
+            res.status(400).json({message: 'Correo electrónico, contraseña o entidad incorrectos', state: 0});
         }
     } catch (error) {
         // Error al buscar en la base de datos
@@ -27,8 +27,6 @@ router.post('/login', async (req, res) => {
     }
 });
 
-//create user
-// create user
 // create user
 router.post("/users", (req, res) => {
     const user = userSchema(req.body);
@@ -684,4 +682,5 @@ router.get('/list-communication/:id_User', async (req, res) => {
         res.status(500).json({message: 'Error al listar los registros de communication', error: error.message});
     }
 });
+
 module.exports = router;
