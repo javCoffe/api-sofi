@@ -13,13 +13,19 @@ router.post('/login', async (req, res) => {
     try {
         const user = await userSchema.findOne({email, password});
 
-        if (user && user.id_School === entityId) {
-            // Usuario encontrado y entityId coincide con id_School del usuario
-            const {_id} = user;
-            res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
+        if (user) {
+            // Usuario encontrado
+            if (user.id_School === entityId) {
+                // entityId coincide con id_School del usuario
+                const {_id} = user;
+                res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
+            } else {
+                // entityId no coincide con id_School del usuario
+                res.status(400).json({message: 'La entidad no coincide con el usuario', state: 0});
+            }
         } else {
-            // Usuario no encontrado, contraseña incorrecta o entityId no coincide con id_School
-            res.status(400).json({message: 'Correo electrónico, contraseña o entidad incorrectos', state: 0});
+            // Usuario no encontrado o contraseña incorrecta
+            res.status(400).json({message: 'Correo electrónico o contraseña incorrectos', state: 0});
         }
     } catch (error) {
         // Error al buscar en la base de datos
