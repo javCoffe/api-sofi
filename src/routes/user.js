@@ -8,14 +8,14 @@ const communication = require("../models/communication");
 const router = express.Router();
 // Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
-    const {email, password, entityId} = req.body;
+    const {email, password, id_School} = req.body;
 
     try {
         const user = await userSchema.findOne({email, password});
 
         if (user) {
             // Usuario encontrado
-            if (user.id_School === entityId) {
+            if (user.id_School === id_School) {
                 // entityId coincide con id_School del usuario
                 const {_id} = user;
                 res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
