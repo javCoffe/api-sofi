@@ -22,10 +22,6 @@ const resourceSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    state: {
-        type: String,
-        required: true,
-    },
 });
 
 module.exports = mongoose.model("Resource", resourceSchema);

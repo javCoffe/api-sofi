@@ -227,34 +227,6 @@ router.post("/users/reset-password", async (req, res) => {
     }
 });
 
-
-//aaaaaa kakaroto ven y sana mi dolooooooooooooooooor
-const Event = require("../models/event"); // Importa el modelo de evento
-
-// Ruta para listar todos los eventos
-router.get("/events", async (req, res) => {
-    try {
-        const events = await Event.find();
-        res.json(events);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-});
-
-// Ruta para obtener un evento específico por ID de mmwbo del usuario
-router.get("/events/:id", async (req, res) => {
-    const {id} = req.params;
-    try {
-        const event = await Event.findById(id);
-        if (!event) {
-            return res.status(404).json({message: "Evento no encontrado"});
-        }
-        res.json(event);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-});
-
 // Sección para los Recursos de Sofía
 
 const Resource = require("../models/resource"); // Asegúrate de importar el modelo Resource correctamente
