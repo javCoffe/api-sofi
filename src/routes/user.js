@@ -49,6 +49,13 @@ router.post("/users", (req, res) => {
             if (error.name === 'ValidationError') {
                 // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
                 res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
+            } else if (error.name === 'MongoError' && error.code === 11000) {
+                // Error de clave duplicada (correo electrónico duplicado)
+                res.status(400).json({
+                    message: 'Ya existe una cuenta con este correo electrónico',
+                    state: 0,
+                    error: error.message
+                });
             } else {
                 // Error interno del servidor
                 res.status(500).json({message: 'Error interno del servidor', error: error.message});
