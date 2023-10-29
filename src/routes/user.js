@@ -37,30 +37,32 @@ router.post('/login', async (req, res) => {
 });
 
 // create user
-router.post("/users", (req, res) => {
-    const user = userSchema(req.body);
-    user
-        .save()
-        .then((data) => {
-            // Usuario creado exitosamente
-            res.status(200).json({message: 'Usuario creado exitosamente', state: 1, userData: data});
-        })
-        .catch((error) => {
-            if (error.name === 'ValidationError') {
-                // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
-                res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
-            } else if (error.name === 'MongoError' && error.code === 11000) {
-                // Error de clave duplicada (correo electrónico duplicado)
-                res.status(500).json({
-                    message: 'Ya existe una cuenta con este correo electrónico',
-                    state: 0,
-                    error: error.message,
-                });
-            } else {
-                // Error interno del servidor
-                res.status(500).json({message: 'Error interno del servidor', error: error.message});
-            }
-        });
+router.post("/users", async (req, res) => {
+    // Verifica si el correo electrónico ya está en uso
+    const existingUser = await userSchema.findOne({ email: req.body.email });
+
+    if (existingUser) {
+        // El correo electrónico ya está en uso
+        res.status(400).json({ message: 'Ya existe una cuenta con ese correo', state: 0 });
+    } else {
+        // El correo electrónico no está en uso, crea el nuevo usuario
+        const user = new User(req.body);
+
+        user.save()
+            .then((data) => {
+                // Usuario creado exitosamente
+                res.status(200).json({ message: 'Usuario creado exitosamente', state: 1, userData: data });
+            })
+            .catch((error) => {
+                if (error.name === 'ValidationError') {
+                    // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
+                    res.status(400).json({ message: 'Error de validación de datos', state: 0, error: error.message });
+                } else {
+                    // Error interno del servidor
+                    res.status(500).json({ message: 'Error interno del servidor', error: error.message });
+                }
+            });
+    }
 });
 
 
