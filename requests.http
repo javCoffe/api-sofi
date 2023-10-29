@@ -103,6 +103,7 @@ Content-Type: application/json
   "name": "Prue ZZZ",
   "lastname": "González",
   "age": "23",
+  "id_School": "1",
   "email": "prueZ@gmail.com",
   "studentCode": "A000001",
   "firstQuestion": "Respuesta1",
