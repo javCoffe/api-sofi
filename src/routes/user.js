@@ -39,11 +39,11 @@ router.post('/login', async (req, res) => {
 // create user
 router.post("/users", async (req, res) => {
     // Verifica si el correo electrónico ya está en uso
-    const existingUser = await userSchema.findOne({ email: req.body.email });
+    const existingUser = await userSchema.findOne({email: req.body.email});
 
     if (existingUser) {
         // El correo electrónico ya está en uso
-        res.status(400).json({ message: 'Ya existe una cuenta con ese correo', state: 0 });
+        res.status(400).json({message: 'Ya existe una cuenta con ese correo', state: 0});
     } else {
         // El correo electrónico no está en uso, crea el nuevo usuario
         const user = new User(req.body);
@@ -51,15 +51,15 @@ router.post("/users", async (req, res) => {
         user.save()
             .then((data) => {
                 // Usuario creado exitosamente
-                res.status(200).json({ message: 'Usuario creado exitosamente', state: 1, userData: data });
+                res.status(200).json({message: 'Usuario creado exitosamente', state: 1, userData: data});
             })
             .catch((error) => {
                 if (error.name === 'ValidationError') {
                     // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
-                    res.status(400).json({ message: 'Error de validación de datos', state: 0, error: error.message });
+                    res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
                 } else {
                     // Error interno del servidor
-                    res.status(500).json({ message: 'Error interno del servidor', error: error.message });
+                    res.status(500).json({message: 'Error interno del servidor', error: error.message});
                 }
             });
     }
@@ -338,20 +338,21 @@ router.post('/users/:email/check-answer', async (req, res) => {
             return res.status(404).json({message: 'Usuario no encontrado', state: 0});
         }
 
-        // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad
-        const securityQuestion1 = user.firstQuestion;
-        const securityQuestion2 = user.secondQuestion;
-        const securityQuestion3 = user.thirdQuestion;
+        // Verificar si la pregunta y respuesta coinciden con alguna de las preguntas de seguridad (ignorar espacios en blanco)
+        const securityQuestion1 = user.firstQuestion.trim();
+        const securityQuestion2 = user.secondQuestion.trim();
+        const securityQuestion3 = user.thirdQuestion.trim();
 
-        if (securityQuestion1 === firstQuestion && securityQuestion2 === secondQuestion && securityQuestion3 === thirdQuestion) {
-            res.status(200).json({message: 'Respuesta de seguridad verificada', state: 1});
+        if (securityQuestion1 === firstQuestion.trim() && securityQuestion2 === secondQuestion.trim() && securityQuestion3 === thirdQuestion.trim()) {
+            res.status(200).json({message: 'Respuestas de seguridad verificada', state: 1});
         } else {
-            res.status(400).json({message: 'Respuesta de seguridad incorrecta', state: 0});
+            res.status(400).json({message: 'Respuestas de seguridad incorrecta', state: 0});
         }
     } catch (error) {
         res.status(500).json({message: 'Error al verificar la respuesta de seguridad', error: error.message});
     }
 });
+
 
 /*SERVICIO PARA LISTAR LAS CATEGORÍAS DE COMPREHENSION*/
 router.get("/resources-comprehension", async (req, res) => {
