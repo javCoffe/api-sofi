@@ -343,7 +343,7 @@ router.post('/users/:email/check-answer', async (req, res) => {
         const securityQuestion2 = user.secondQuestion.trim();
         const securityQuestion3 = user.thirdQuestion.trim();
 
-        if (securityQuestion1 === firstQuestion.trim() && securityQuestion2 === secondQuestion.trim() && securityQuestion3 === thirdQuestion.trim()) {
+        if (securityQuestion1.trim() === firstQuestion.trim() && securityQuestion2.trim() === secondQuestion.trim() && securityQuestion3.trim() === thirdQuestion.trim()) {
             res.status(200).json({message: 'Respuestas de seguridad verificada', state: 1});
         } else {
             res.status(400).json({message: 'Respuestas de seguridad incorrecta', state: 0});
