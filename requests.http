@@ -16,11 +16,10 @@ Content-Type: application/json
 }
 
 ###
-POST https://server-sofi.onrender.com/api/users/check-answer HTTP/1.1
+POST https://server-sofi.onrender.com/api/users/dgonzalez@autonoma.edu.pe/check-answer HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "dgonzalez@autonoma.edu.pe",
   "firstQuestion": "tallarín verde con bisteck",
   "secondQuestion": "Roma",
   "thirdQuestion": "pipoa"
