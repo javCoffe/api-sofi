@@ -7,7 +7,7 @@ Content-Type: application/json
   "lastname": "González",
   "age": "23",
   "id_School": "1",
-  "email": "dgonzalez@autonoma.edu.pe",
+  "email": "abc@autonoma.edu.pe",
   "studentCode": "A000001",
   "firstQuestion": "Respuesta1",
   "secondQuestion": "Respuesta2",
