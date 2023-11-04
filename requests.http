@@ -3,11 +3,11 @@ POST https://server-sofi.onrender.com/api/users/create-user HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Prue ZZZ",
+  "name": "Alfa omega",
   "lastname": "González",
   "age": "23",
   "id_School": "1",
-  "email": "abc@autonoma.edu.pe",
+  "email": "abcd@autonoma.edu.pe",
   "studentCode": "A000001",
   "firstQuestion": "Respuesta1",
   "secondQuestion": "Respuesta2",
