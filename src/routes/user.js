@@ -38,30 +38,43 @@ router.post('/login', async (req, res) => {
 
 // create user
 router.post("/users/create-user", async (req, res) => {
-    // Verifica si el correo electrónico ya está en uso
-    const existingUser = await userSchema.findOne({email: req.body.email});
+    try {
+        // Verifica si el correo electrónico ya está en uso
+        const existingUser = await userSchema.findOne({ email: req.body.email });
 
-    if (existingUser) {
-        // El correo electrónico ya está en uso
-        res.status(400).json({message: 'Ya existe una cuenta con ese correo', state: 0});
-    } else {
-        // El correo electrónico no está en uso, crea el nuevo usuario
-        const user = new User(req.body);
-
-        user.save()
-            .then((data) => {
-                // Usuario creado exitosamente
-                res.status(200).json({message: 'Usuario creado exitosamente', state: 1, userData: data});
-            })
-            .catch((error) => {
-                if (error.name === 'ValidationError') {
-                    // Error de validación de datos (por ejemplo, campos faltantes o inválidos)
-                    res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
-                } else {
-                    // Error interno del servidor
-                    res.status(500).json({message: 'Error interno del servidor', error: error.message});
-                }
+        if (existingUser) {
+            return res.status(400).json({
+                message: "El correo electrónico ya está en uso",
+                state: 0
             });
+        }
+
+        // El correo no está en uso, crear nuevo usuario
+        const user = new userSchema(req.body);
+        await user.save();
+
+        res.status(201).json({
+            message: "Usuario creado exitosamente",
+            state: 1,
+            user: user
+        });
+
+    } catch (err) {
+        if (err instanceof mongoose.Error.ValidationError) {
+            // Error de validación
+            return res.status(400).json({
+                message: "Error de validación",
+                state: 0,
+                errors: err.errors
+            });
+        }
+
+        // Error interno del servidor
+        return res.status(500).json({
+            message: "Error interno del servidor",
+            state: 0,
+            error: err.message
+        });
     }
 });
 
