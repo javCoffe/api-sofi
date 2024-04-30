@@ -1,0 +1,19 @@
+###
+POST http://localhost:9000/api/user/create-user HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Diego Alonso",
+  "lastname": "Gonzalez Bardales",
+  "age": "14",
+  "id_School": "1",
+  "email": "dgonzalez@autonoma.edu.pe",
+  "studentCode": "71854125",
+  "firstQuestion": "PruebaR1",
+  "secondQuestion": "PruebaR2",
+  "thirdQuestion": "PruebaR3",
+  "password": "@Patito2901"
+}
+
+###
+GET http://localhost:9000/api/user/list-users HTTP/1.1

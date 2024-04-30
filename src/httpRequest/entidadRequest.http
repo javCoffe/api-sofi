@@ -1,0 +1,21 @@
+###
+GET http://localhost:9000/api/entity/list-entity HTTP/1.1
+
+###
+POST http://localhost:9000/api/entity/create-entity HTTP/1.1
+Content-Type: application/json
+
+{
+  "id_Entity": "3",
+  "nameEntity": "Colegio José de la Riva Agüero y Osma",
+  "imgEntity": "assets/entity/iet.png",
+  "stateEntity": "0"
+}
+
+###
+PUT http://localhost:9000/api/entity/entity-state/663112b161904f5584e43525 HTTP/1.1
+Content-Type: application/json
+
+{
+  "stateEntity": "0"
+}
