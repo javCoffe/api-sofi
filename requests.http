@@ -1,16 +1,5 @@
 
 ###
-POST https://server-sofi.onrender.com/api/users/email/check-answer HTTP/1.1
-Content-Type: application/json
-
-{
-  "email": "dgonzalez@autonoma.edu.pe",
-  "firstQuestion": "lomo saltado",
-  "secondQuestion": "new york",
-  "thirdQuestion": "poncho"
-}
-
-###
 POST https://server-sofi.onrender.com/api/resources HTTP/1.1
 Content-Type: application/json
 
@@ -30,7 +19,6 @@ Content-Type: application/json
 {
   "email": "DGONZALEZ@AUTONOMA.EDU.PE"
 }
-
 
 
 ###

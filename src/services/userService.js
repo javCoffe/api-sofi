@@ -105,54 +105,30 @@ router.get("/user/find-user/:id", (req, res) => {
         });
 });
 
-// MICROSERVICIO PARA ACTUALIZAR UN USUARIO
-router.put("/user/update-user/:id", (req, res) => {
-    const {id} = req.params;
-    const {
-        name,
-        lastname,
-        age,
-        id_School,
-        email,
-        studentCode,
-        firstQuestion,
-        secondQuestion,
-        thirdQuestion,
-        password
-    } = req.body;
+//MICROSERVICIO PARA EDITAR EL USUARIO
+router.put("/user/edit-user/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const userDataToUpdate = req.body;
 
-    userSchema
-        .updateOne({_id: id}, {
-            $set: {
-                name,
-                lastname,
-                age,
-                id_School,
-                email,
-                studentCode,
-                firstQuestion,
-                secondQuestion,
-                thirdQuestion,
-                password
-            }
-        })
-        .then((data) => {
-            if (data.nModified > 0) {
-                // Usuario actualizado exitosamente
-                res.status(200).json({message: 'Usuario actualizado exitosamente', state: 1, response: data});
-            } else {
-                // Usuario no encontrado o no se ha realizado ninguna modificación
-                res.status(400).json({
-                    message: 'Usuario no encontrado o no se ha realizado ninguna modificación',
-                    state: 0
-                });
-            }
-        })
-        .catch((error) => {
-            // Error interno del servidor
-            res.status(500).json({message: "Error al actualizar el usuario", error: error.message});
-        });
+        // Verifica si el usuario existe
+        const existingUser = await userSchema.findById(userId);
+        if (!existingUser) {
+            return res.status(404).json({message: 'Usuario no encontrado', state: 0});
+        }
+
+        // Actualiza los datos del usuario
+        const userUpdate = await userSchema.findByIdAndUpdate(userId, userDataToUpdate, {new: true});
+        res.status(200).json({message: 'Usuario actualizado correctamente', response: userUpdate, state: 1});
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            res.status(400).json({message: 'Error de validación de datos', state: 0, error: error.message});
+        } else {
+            res.status(500).json({message: 'Error interno del servidor', error: error.message, state: 0});
+        }
+    }
 });
+
 
 // MICROSERVICIO PARA RESTABLECER LA CONTRASEÑA DEL USUARIO
 router.post("/user/reset-password", async (req, res) => {
