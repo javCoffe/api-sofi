@@ -1,0 +1,12 @@
+###
+POST http://localhost:9000/api/comprehension/create-comprehension HTTP/1.1
+Content-Type: application/json
+
+{
+  "id_User": "usuario123",
+  "id_Resource": "recurso789",
+  "stateResource": "1"
+}
+
+###
+GET http://localhost:9000/api/comprehension/list-comprehension/663108c061904f5584e43522 HTTP/1.1

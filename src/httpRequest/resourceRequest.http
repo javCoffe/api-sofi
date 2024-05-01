@@ -1,0 +1,35 @@
+###
+POST http://localhost:9000/api/resources/create-resource HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "web_Prueba3",
+  "path": "assets/imgs/resources/internet.png",
+  "category": "preposition",
+  "icon": "internet",
+  "url": "-",
+  "state": "0"
+}
+
+###
+GET http://localhost:9000/api/resources/list-resources HTTP/1.1
+
+###
+GET http://localhost:9000/api/resources/list-category/ HTTP/1.1
+
+###
+GET http://localhost:9000/api/resources/resources-comprehension HTTP/1.1
+
+###
+GET http://localhost:9000/api/resources/resources-expression HTTP/1.1
+
+###
+GET http://localhost:9000/api/resources/resources-comunication HTTP/1.1
+
+###
+PUT http://localhost:9000/api/resources/resources-state/6519f121dcaa91d20f5bbc14 HTTP/1.1
+Content-Type: application/json
+
+{
+  "state": "0"
+}

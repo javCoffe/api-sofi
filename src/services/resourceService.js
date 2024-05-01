@@ -31,7 +31,7 @@ router.post("/resources/create-resource", async (req, res) => {
 });
 
 // MICROSERVICIO PARA LISTAR TODOS LOS RECURSOS
-router.get("resources/list-resources", async (req, res) => {
+router.get("/resources/list-resources", async (req, res) => {
     try {
         const resources = await resourceSchema.find();
 
