@@ -3,10 +3,10 @@ POST http://localhost:9000/api/resources/create-resource HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "web_Prueba3",
-  "path": "assets/imgs/resources/internet.png",
-  "category": "preposition",
-  "icon": "internet",
+  "name": "¿Qué?",
+  "path": "assets/comprehension/question/qué.png",
+  "category": "question",
+  "icon": "png",
   "url": "-",
   "state": "0"
 }

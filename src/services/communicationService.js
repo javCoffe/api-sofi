@@ -47,4 +47,21 @@ router.get('/communication/list-communication/:id_User', async (req, res) => {
     }
 });
 
+/*SERVICIO PARA LISTAR LAS CATEGORÍAS DE COMUNICATION*/
+router.get("/communication/resources-comunication", async (req, res) => {
+    const categories = ["adverb", "preposition"];
+
+    try {
+        // Realizar una consulta para buscar recursos por categorías específicas
+        const resources = await communicationSchema.find({category: {$in: categories}});
+
+        if (!resources || resources.length === 0) {
+            return res.status(400).json({message: "Recursos no encontrados para la categoría comunication", state: 0});
+        }
+
+        res.status(200).json({message: "Recursos encontrados para la categoría comunication", state: 1, resources});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
 module.exports = router;

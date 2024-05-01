@@ -48,4 +48,22 @@ router.get('/expression/list-expression/:id_User', async (req, res) => {
     }
 });
 
+/*SERVICIO PARA LISTAR LAS CATEGORÍAS DE EXPRESSION*/
+router.get("/expression/resources-expression", async (req, res) => {
+    const categories = ["abc", "numbers", "common-expressions", "colors"];
+
+    try {
+        // Realizar una consulta para buscar recursos por categorías específicas
+        const resources = await expressSchema.find({category: {$in: categories}});
+
+        if (!resources || resources.length === 0) {
+            return res.status(400).json({message: "Recursos no encontrados para la categoría expression", state: 0});
+        }
+
+        res.status(200).json({message: "Recursos encontrados para la categoría expression", state: 1, resources});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
+
 module.exports = router;
