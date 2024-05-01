@@ -9,4 +9,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:9000/api/expression/list-expression/663108c061904f5584e43522 HTTP/1.1
+GET http://localhost:9000/api/expression/list-expression-user/663108c061904f5584e43522 HTTP/1.1
+
+###
+GET http://localhost:9000/api/expression/resources-expression HTTP/1.1

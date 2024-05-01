@@ -1,5 +1,6 @@
 const express = require('express');
 const communicationSchema = require('../models/communication');
+const resourceSchema = require("../models/resource");
 const router = express.Router();
 
 /*SERVICIO PARA CREAR COMMUNICATION*/
@@ -20,7 +21,7 @@ router.post('/communication/create-communication', async (req, res) => {
 });
 
 /*SERVICIO PARA LISTAR COMMUNICATION*/
-router.get('/communication/list-communication/:id_User', async (req, res) => {
+router.get('/communication/list-communication-user/:id_User', async (req, res) => {
     try {
         const {id_User} = req.params;
         if (!id_User) {
@@ -38,7 +39,7 @@ router.get('/communication/list-communication/:id_User', async (req, res) => {
         res.status(200).json({
             message: 'Registros de communication encontrados exitosamente',
             state: 1,
-            communications
+            response:communications
         });
     } catch (error) {
         // Error interno del servidor (error 500)
@@ -53,13 +54,17 @@ router.get("/communication/resources-comunication", async (req, res) => {
 
     try {
         // Realizar una consulta para buscar recursos por categorías específicas
-        const resources = await communicationSchema.find({category: {$in: categories}});
+        const resources = await resourceSchema.find({category: {$in: categories}});
 
         if (!resources || resources.length === 0) {
             return res.status(400).json({message: "Recursos no encontrados para la categoría comunication", state: 0});
         }
 
-        res.status(200).json({message: "Recursos encontrados para la categoría comunication", state: 1, resources});
+        res.status(200).json({
+            message: "Recursos encontrados para la categoría comunication",
+            state: 1,
+            response: resources
+        });
     } catch (error) {
         res.status(500).json({message: error.message});
     }

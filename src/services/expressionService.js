@@ -1,5 +1,6 @@
 const express = require('express')
 const expressSchema = require('../models/expression')
+const resourceSchema = require('../models/resource')
 
 const router = express.Router()
 
@@ -21,7 +22,7 @@ router.post('/expression/create-expression', async (req, res) => {
 });
 
 /*SERVICIO PARA LISTAR EXPRESSION*/
-router.get('/expression/list-expression/:id_User', async (req, res) => {
+router.get('/expression/list-expression-user/:id_User', async (req, res) => {
     try {
         const {id_User} = req.params;
         if (!id_User) {
@@ -39,7 +40,7 @@ router.get('/expression/list-expression/:id_User', async (req, res) => {
         res.status(200).json({
             message: 'Registros de expression encontrados exitosamente',
             state: 1,
-            expressions
+            response:expressions
         });
     } catch (error) {
         // Error interno del servidor (error 500)
@@ -50,17 +51,21 @@ router.get('/expression/list-expression/:id_User', async (req, res) => {
 
 /*SERVICIO PARA LISTAR LAS CATEGORÍAS DE EXPRESSION*/
 router.get("/expression/resources-expression", async (req, res) => {
-    const categories = ["abc", "numbers", "common-expressions", "colors"];
+    const categories = ["abc", "numbers"];
 
     try {
         // Realizar una consulta para buscar recursos por categorías específicas
-        const resources = await expressSchema.find({category: {$in: categories}});
+        const resources = await resourceSchema.find({category: {$in: categories}});
 
         if (!resources || resources.length === 0) {
             return res.status(400).json({message: "Recursos no encontrados para la categoría expression", state: 0});
         }
 
-        res.status(200).json({message: "Recursos encontrados para la categoría expression", state: 1, resources});
+        res.status(200).json({
+            message: "Recursos encontrados para la categoría expression",
+            state: 1,
+            response: resources
+        });
     } catch (error) {
         res.status(500).json({message: error.message});
     }

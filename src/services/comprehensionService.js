@@ -1,5 +1,6 @@
 const express = require('express');
 const comprenhensionSchema = require('../models/comprehension')
+const resourceSchema = require("../models/resource");
 const router = express.Router();
 
 
@@ -21,7 +22,7 @@ router.post('/comprehension/create-comprehension', async (req, res) => {
 });
 
 /*SERVICIO PARA LISTAR COMPREHENSION*/
-router.get('/comprehension/list-comprehension/:id_User', async (req, res) => {
+router.get('/comprehension/list-comprehension-user/:id_User', async (req, res) => {
     try {
         const {id_User} = req.params;
         if (!id_User) {
@@ -39,7 +40,7 @@ router.get('/comprehension/list-comprehension/:id_User', async (req, res) => {
         res.status(200).json({
             message: 'Registros de comprensión encontrados exitosamente',
             state: 1,
-            comprehensions
+            response:comprehensions
         });
     } catch (error) {
         // Error interno del servidor (error 500)
@@ -54,13 +55,17 @@ router.get("/comprehension/resources-comprehension", async (req, res) => {
 
     try {
         // Realizar una consulta para buscar recursos por categorías específicas
-        const resources = await comprenhensionSchema.find({category: {$in: categories}});
+        const resources = await resourceSchema.find({category: {$in: categories}});
 
         if (!resources || resources.length === 0) {
             return res.status(400).json({message: "Recursos no encontrados para la categoría comprehension", state: 0});
         }
 
-        res.status(200).json({message: "Recursos encontrados para la categoría comprehension", state: 1, resources});
+        res.status(200).json({
+            message: "Recursos encontrados para la categoría comprehension",
+            state: 1,
+            response: resources
+        });
     } catch (error) {
         res.status(500).json({message: error.message});
     }
