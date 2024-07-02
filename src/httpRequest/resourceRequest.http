@@ -3,9 +3,9 @@ POST http://localhost:9000/api/resources/create-resource HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "¿Qué?",
-  "path": "assets/comprehension/question/qué.png",
-  "category": "question",
+  "name": "Y",
+  "path": "assets/comunication/preposition/y.png",
+  "category": "preposition",
   "icon": "png",
   "url": "-",
   "state": "0"
