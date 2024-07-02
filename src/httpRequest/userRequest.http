@@ -3,9 +3,8 @@ POST http://localhost:9000/api/user/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "dgonzalez@autonoma.edu.pe",
-  "password": "@Patito2901",
-  "id_School": "1"
+  "email": "DGONZALEZ@AUTONOMA.EDU.PE",
+  "password": "@PATITO2901"
 }
 
 ###
@@ -16,7 +15,6 @@ Content-Type: application/json
   "name": "Diego Alonso",
   "lastname": "Gonzalez Bardales",
   "age": "14",
-  "id_School": "1",
   "email": "dgonzalez@autonoma.edu.pe",
   "studentCode": "71854125",
   "firstQuestion": "PruebaR1",
@@ -55,7 +53,6 @@ Content-Type: application/json
   "name": "Diego Alonso",
   "lastname": "Gonzalez Bardales",
   "age": "14",
-  "id_School": "1",
   "email": "dgonzalez@autonoma.edu.pe",
   "studentCode": "71874125",
   "firstQuestion": "Respuesta1",

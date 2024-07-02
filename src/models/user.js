@@ -13,10 +13,6 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    id_School: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true,

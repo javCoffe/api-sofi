@@ -6,7 +6,6 @@ const userService = require("./services/userService");
 const communicationService = require("./services/communicationService");
 const comprehensionService = require("./services/comprehensionService");
 const expressionService = require("./services/expressionService");
-const entityService = require("./services/entidadService");
 const resourceService = require("./services/resourceService");
 
 const cors = require("cors");
@@ -24,7 +23,6 @@ app.use('/api', userService);
 app.use('/api', communicationService);
 app.use('/api', comprehensionService);
 app.use('/api', expressionService);
-app.use('/api', entityService);
 app.use('/api', resourceService);
 
 

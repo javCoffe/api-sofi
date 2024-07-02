@@ -5,46 +5,34 @@ const router = express.Router();
 
 // MICROSERVICIO PARA EL LOGIN DEL USUARIO
 router.post('/user/login', async (req, res) => {
-    const {email, password, id_School} = req.body;
+    const {email, password} = req.body;
 
     try {
         const user = await userSchema.findOne({email, password});
 
         if (user) {
             // Usuario encontrado
-            if (user.id_School === id_School) {
-                // entityId coincide con id_School del usuario
-                const {_id} = user;
-                res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
-            } else {
-                // entityId no coincide con id_School del usuario
-                res.status(400).json({
-                    message: 'El colegio no coincide con el usuario. Por favor, comunicarse con el área de Soporte',
-                    state: 0
-                });
-            }
+            const {_id} = user;
+            res.status(200).json({message: 'Inicio de sesión exitoso', state: 1, userId: _id});
         } else {
             // Usuario no encontrado o contraseña incorrecta
             res.status(400).json({message: 'Correo electrónico o contraseña incorrectos', state: 0});
         }
     } catch (error) {
-        // Error al buscar en la base de datos
         res.status(500).json({message: 'Error al iniciar sesión', error: error.message});
     }
 });
 
 // MICROSERVICIO PARA CREAR UN USUARIO
 router.post("/user/create-user", async (req, res) => {
-    // Verifica si el correo electrónico ya está en uso
-    const existingUser = await userSchema.findOne({email: req.body.email});
 
+    const existingUser = await userSchema.findOne({email: req.body.email});
     if (existingUser) {
         // El correo electrónico ya está en uso
         res.status(400).json({message: 'Ya existe una cuenta con ese correo', state: 0});
     } else {
         // El correo electrónico no está en uso, crea el nuevo usuario
         const user = new userSchema(req.body);
-
         user.save()
             .then((data) => {
                 // Usuario creado exitosamente
