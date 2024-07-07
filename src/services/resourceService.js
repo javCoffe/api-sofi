@@ -6,17 +6,17 @@ const router = express.Router();
 router.post("/resources/create-resource", async (req, res) => {
     try {
         // Extraer los datos del cuerpo de la solicitud
-        const {name, path, category, icon, url, state} = req.body;
+        const {name, path, category, icon, url} = req.body;
 
         // Validar los datos antes de crear el recurso (por ejemplo, asegurarse de que todos los campos requeridos estén presentes)
 
-        if (!name || !path || !category || !icon || !url || !state) {
+        if (!name || !path || !category || !icon || !url) {
             // Datos de solicitud incompletos (error 400)
             return res.status(400).json({message: "Datos de solicitud incompletos", state: 0});
         }
 
         // Crear una nueva instancia del modelo Resource
-        const newResource = new resourceSchema({name, path, category, icon, url, state});
+        const newResource = new resourceSchema({name, path, category, icon, url});
 
         // Guardar el nuevo recurso en la base de datos
         const savedResource = await newResource.save();
