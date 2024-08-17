@@ -12,14 +12,14 @@ POST http://localhost:9000/api/user/create-user HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Diego Alonso",
-  "lastname": "Gonzalez Bardales",
+  "name": "Angel Isaías",
+  "lastname": "Roman Vargas",
   "age": "14",
-  "email": "dgonzalez@autonoma.edu.pe",
+  "email": "aroman@autonoma.edu.pe",
   "firstQuestion": "PruebaR1",
   "secondQuestion": "PruebaR2",
   "thirdQuestion": "PruebaR3",
-  "password": "@Patito2901"
+  "password": "@Patito4152"
 }
 
 ###
