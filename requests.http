@@ -67,7 +67,6 @@ Content-Type: application/json
   "lastname": "González",
   "age": "23",
   "email": "dgonzalez@autonoma.edu.pe",
-  "studentCode": "A000001",
   "firstQuestion": "Respuesta1",
   "secondQuestion": "Respuesta2",
   "thirdQuestion": "Respuesta3",
