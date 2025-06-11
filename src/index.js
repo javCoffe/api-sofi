@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-require ("dotenv").config();
+require('dotenv').config();
+require('newrelic');
 
 const fs = require('fs');
 
